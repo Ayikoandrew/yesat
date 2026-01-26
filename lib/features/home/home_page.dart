@@ -44,32 +44,22 @@ class HomePage extends ConsumerWidget {
       floating: true,
       pinned: true,
       backgroundColor: AppTheme.creamSurface.withValues(alpha: 0.9),
-      leadingWidth: isMobile ? 100 : 56,
       leading: isMobile
-          ? Row(
-              children: [
-                Builder(
-                  builder: (context) => IconButton(
-                    icon: const Icon(Icons.menu),
-                    onPressed: () => Scaffold.of(context).openDrawer(),
-                  ),
-                ),
-                Image.asset(
-                  'assets/images/YESAT_Logo.png',
-                  height: 36,
-                  fit: BoxFit.contain,
-                ),
-              ],
-            )
-          : Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: Image.asset(
-                'assets/images/YESAT_Logo.png',
-                height: 40,
-                fit: BoxFit.contain,
+          ? Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () => Scaffold.of(context).openDrawer(),
               ),
-            ),
-      title: null,
+            )
+          : null,
+      title: Text(
+        'YESAT Initiative',
+        style: GoogleFonts.libreBaskerville(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: AppTheme.darkText,
+        ),
+      ),
       automaticallyImplyLeading: false,
       actions: isMobile
           ? null
@@ -111,15 +101,15 @@ class HomePage extends ConsumerWidget {
         children: [
           DrawerHeader(
             decoration: const BoxDecoration(color: AppTheme.creamSurface),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/images/YESAT_Logo.png',
-                  height: 80,
-                  fit: BoxFit.contain,
+            child: Center(
+              child: Text(
+                'YESAT',
+                style: GoogleFonts.libreBaskerville(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: AppTheme.darkText,
                 ),
-              ],
+              ),
             ),
           ),
           _DrawerItem(

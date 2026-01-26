@@ -48,7 +48,14 @@ class ImpactPage extends ConsumerWidget {
               icon: const Icon(Icons.arrow_back, color: AppTheme.darkText),
               onPressed: () => ref.read(coordinatorProvider).pop(),
             ),
-      title: Image.asset('assets/images/YESAT_Logo.png', height: 40),
+      title: Text(
+        'YESAT Initiative',
+        style: GoogleFonts.libreBaskerville(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: AppTheme.darkText,
+        ),
+      ),
       actions: isMobile
           ? null
           : [
@@ -75,10 +82,13 @@ class ImpactPage extends ConsumerWidget {
           DrawerHeader(
             decoration: const BoxDecoration(color: AppTheme.creamSurface),
             child: Center(
-              child: Image.asset(
-                'assets/images/YESAT_Logo.png',
-                height: 60,
-                fit: BoxFit.contain,
+              child: Text(
+                'YESAT',
+                style: GoogleFonts.libreBaskerville(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: AppTheme.darkText,
+                ),
               ),
             ),
           ),
@@ -309,7 +319,7 @@ class ImpactPage extends ConsumerWidget {
       color: AppTheme.creamSurface,
       child: Center(
         child: Text(
-          '© 2026 YESAT Initiative Uganda Ltd.',
+          '© 2026 YESAT Initiative Uganda Ltd. Empowering the youth today.',
           style: TextStyle(color: AppTheme.darkText.withValues(alpha: 0.5)),
         ),
       ),

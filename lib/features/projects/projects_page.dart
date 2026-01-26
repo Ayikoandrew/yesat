@@ -52,7 +52,14 @@ class ProjectsPage extends ConsumerWidget {
               icon: const Icon(Icons.arrow_back),
               onPressed: () => ref.read(coordinatorProvider).pop(),
             ),
-      title: Image.asset('assets/images/YESAT_Logo.png', height: 40),
+      title: Text(
+        'YESAT Initiative',
+        style: GoogleFonts.libreBaskerville(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: AppTheme.darkText,
+        ),
+      ),
       actions: isMobile
           ? null
           : [
@@ -82,10 +89,13 @@ class ProjectsPage extends ConsumerWidget {
           DrawerHeader(
             decoration: const BoxDecoration(color: AppTheme.creamSurface),
             child: Center(
-              child: Image.asset(
-                'assets/images/YESAT_Logo.png',
-                height: 60,
-                fit: BoxFit.contain,
+              child: Text(
+                'YESAT',
+                style: GoogleFonts.libreBaskerville(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: AppTheme.darkText,
+                ),
               ),
             ),
           ),
@@ -240,17 +250,17 @@ class ProjectsPage extends ConsumerWidget {
       color: AppTheme.darkText,
       child: Column(
         children: [
+          // Text(
+          //   'YESAT',
+          //   style: GoogleFonts.libreBaskerville(
+          //     fontSize: 24,
+          //     color: AppTheme.creamBackground,
+          //     fontWeight: FontWeight.bold,
+          //   ),
+          // ),
+          // const SizedBox(height: 20),
           Text(
-            'YESAT',
-            style: GoogleFonts.libreBaskerville(
-              fontSize: 24,
-              color: AppTheme.creamBackground,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 20),
-          Text(
-            '© 2024 YESAT Initiative Uganda Ltd. All rights reserved.',
+            '© 2026 YESAT Initiative Uganda Ltd. Empowering the youth today.',
             style: TextStyle(
               color: AppTheme.creamBackground.withValues(alpha: 0.6),
             ),
