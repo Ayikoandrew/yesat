@@ -248,24 +248,11 @@ class ProjectsPage extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 24),
       color: AppTheme.creamSurface,
-      child: Column(
-        children: [
-          // Text(
-          //   'YESAT',
-          //   style: GoogleFonts.libreBaskerville(
-          //     fontSize: 24,
-          //     color: AppTheme.creamBackground,
-          //     fontWeight: FontWeight.bold,
-          //   ),
-          // ),
-          // const SizedBox(height: 20),
-          Text(
-            '© 2026 YESAT Initiative Uganda Ltd. Empowering the youth today.',
-            style: TextStyle(
-              color: AppTheme.creamBackground.withValues(alpha: 0.6),
-            ),
-          ),
-        ],
+      child: Center(
+        child: Text(
+          '© 2026 YESAT Initiative Uganda Ltd. Empowering the youth today.',
+          style: TextStyle(color: AppTheme.darkText.withValues(alpha: 0.5)),
+        ),
       ),
     );
   }
