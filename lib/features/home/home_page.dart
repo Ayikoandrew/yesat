@@ -165,23 +165,26 @@ class HomePage extends ConsumerWidget {
           color: AppTheme.creamBackground,
           child: Stack(
             children: [
-              // Background subtle texture
               Positioned.fill(
                 child: CustomPaint(painter: _SubtlePatternPainter()),
               ),
-
-              /* 
-              
               Positioned.fill(
                 child: Opacity(
-                  opacity: 0.2, // Adjust opacity to keep the professional cream feel
+                  opacity: 0.25,
                   child: Image.network(
-                    'https://stock-photo-url.jpg',
+                    'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2000&auto=format&fit=crop',
                     fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Container(color: AppTheme.creamBackground);
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(color: AppTheme.creamBackground);
+                    },
                   ),
                 ),
               ),
-              */
+
               Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
