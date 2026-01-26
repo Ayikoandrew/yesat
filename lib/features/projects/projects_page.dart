@@ -247,7 +247,7 @@ class ProjectsPage extends ConsumerWidget {
   Widget _buildFooter() {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 24),
-      color: AppTheme.darkText,
+      color: AppTheme.creamSurface,
       child: Column(
         children: [
           // Text(
