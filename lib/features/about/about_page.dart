@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:yesat/features/about/about_providers.dart';
 import '../../core/router.dart';
 import '../../core/theme.dart';
 import '../../main.dart';
@@ -22,11 +23,11 @@ class AboutPage extends ConsumerWidget {
             child: CustomScrollView(
               slivers: [
                 _buildAppBar(context, ref, isMobile),
-                SliverToBoxAdapter(child: _buildHeaderSection()),
-                SliverToBoxAdapter(child: _buildStorySection()),
-                SliverToBoxAdapter(child: _buildVisionMissionSection()),
-                SliverToBoxAdapter(child: _buildCoreValuesSection()),
-                SliverToBoxAdapter(child: _buildTeamSection()),
+                SliverToBoxAdapter(child: _buildHeaderSection(ref)),
+                SliverToBoxAdapter(child: _buildStorySection(ref)),
+                SliverToBoxAdapter(child: _buildVisionMissionSection(ref)),
+                SliverToBoxAdapter(child: _buildCoreValuesSection(ref)),
+                SliverToBoxAdapter(child: _buildTeamSection(ref)),
                 SliverToBoxAdapter(child: _buildTransparencySection()),
                 SliverToBoxAdapter(child: _buildFooter()),
               ],
@@ -48,7 +49,14 @@ class AboutPage extends ConsumerWidget {
               icon: const Icon(Icons.arrow_back, color: AppTheme.darkText),
               onPressed: () => ref.read(coordinatorProvider).pop(),
             ),
-      title: Image.asset('assets/images/YESAT_Logo.png', height: 40),
+      title: Text(
+        'YESAT Initiative',
+        style: GoogleFonts.libreBaskerville(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: AppTheme.darkText,
+        ),
+      ),
       actions: isMobile
           ? null
           : [
@@ -79,10 +87,13 @@ class AboutPage extends ConsumerWidget {
           DrawerHeader(
             decoration: const BoxDecoration(color: AppTheme.creamSurface),
             child: Center(
-              child: Image.asset(
-                'assets/images/YESAT_Logo.png',
-                height: 60,
-                fit: BoxFit.contain,
+              child: Text(
+                'YESAT',
+                style: GoogleFonts.libreBaskerville(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: AppTheme.darkText,
+                ),
               ),
             ),
           ),
@@ -109,14 +120,16 @@ class AboutPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildHeaderSection() {
+  Widget _buildHeaderSection(WidgetRef ref) {
+    final company = ref.watch(companyProvider);
+    final vibrant = ref.watch(vibrantProvider);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 40),
       color: AppTheme.creamBackground,
       child: Column(
         children: [
           Text(
-            'Youth Empowerment through Sustainable Action for Transformation (YESAT) Initiative Uganda Ltd',
+            company,
             textAlign: TextAlign.center,
             style: GoogleFonts.libreBaskerville(
               fontSize: 32,
@@ -126,7 +139,7 @@ class AboutPage extends ConsumerWidget {
           ).animate().fadeIn(duration: 1200.ms).slideY(begin: 0.2),
           const SizedBox(height: 24),
           Text(
-            'Vibrant. Self-reliant. Empowered.',
+            vibrant,
             textAlign: TextAlign.center,
             style: GoogleFonts.inter(
               fontSize: 18,
@@ -146,7 +159,7 @@ class AboutPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildStorySection() {
+  Widget _buildStorySection(WidgetRef ref) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = constraints.maxWidth < 900;
@@ -161,9 +174,9 @@ class AboutPage extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (!isMobile)
-                    Expanded(flex: 3, child: _buildStoryText())
+                    Expanded(flex: 3, child: _buildStoryText(ref))
                   else
-                    _buildStoryText(),
+                    _buildStoryText(ref),
                   SizedBox(width: isMobile ? 0 : 80, height: isMobile ? 60 : 0),
                   if (!isMobile)
                     Expanded(flex: 2, child: _buildStoryImage())
@@ -172,7 +185,7 @@ class AboutPage extends ConsumerWidget {
                 ],
               ),
               const SizedBox(height: 60),
-              _buildDetailedBackground(),
+              _buildDetailedBackground(ref),
             ],
           ),
         );
@@ -180,12 +193,15 @@ class AboutPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildStoryText() {
+  Widget _buildStoryText(WidgetRef ref) {
+    final background = ref.watch(vibrantProvider);
+    final history = ref.watch(historyProvider);
+    final organization = ref.watch(organizationProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Our Background',
+          background,
           style: GoogleFonts.libreBaskerville(
             fontSize: 32,
             fontWeight: FontWeight.bold,
@@ -193,7 +209,7 @@ class AboutPage extends ConsumerWidget {
         ),
         const SizedBox(height: 32),
         Text(
-          'YESAT Initiative Uganda Ltd is a youth-led community-based non-governmental organization established in 2025 in the West Nile Sub-region, Uganda. Originally formed as Eco-Frontline Youth Uganda Ltd, the name was revised to reflect the broader scope of service delivery and interests the organization aims to achieve.',
+          history,
           style: GoogleFonts.inter(
             fontSize: 18,
             height: 1.6,
@@ -202,7 +218,7 @@ class AboutPage extends ConsumerWidget {
         ),
         const SizedBox(height: 24),
         Text(
-          'The organization was born from recognized social, economic, and environmental challenges in the region that deeply impact youth, women, and vulnerable groups.',
+          organization,
           style: GoogleFonts.inter(
             fontSize: 18,
             height: 1.6,
@@ -213,12 +229,15 @@ class AboutPage extends ConsumerWidget {
     ).animate().fadeIn(duration: 1200.ms).slideX(begin: -0.1);
   }
 
-  Widget _buildDetailedBackground() {
+  Widget _buildDetailedBackground(WidgetRef ref) {
+    final detail = ref.watch(detailProvider);
+    final mission = ref.watch(missionProvider);
+    final mission2 = ref.watch(missionProvider2);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Uganda has a young and rapidly growing population, yet many face unemployment, poverty, limited skills, and environmental degradation. YESAT was founded by motivated young people who saw a need for practical, community-driven solutions.',
+          detail,
           style: GoogleFonts.inter(
             fontSize: 18,
             height: 1.6,
@@ -227,7 +246,7 @@ class AboutPage extends ConsumerWidget {
         ),
         const SizedBox(height: 24),
         Text(
-          'Our mission is to empower youth to become active agents of change, equipping them with the knowledge and opportunities to contribute substantially to their communities and transform their lives toward self-reliance.',
+          mission,
           style: GoogleFonts.inter(
             fontSize: 18,
             height: 1.6,
@@ -236,7 +255,7 @@ class AboutPage extends ConsumerWidget {
         ),
         const SizedBox(height: 24),
         Text(
-          'We work closely with local communities, leaders, government structures, and partners to design programs guided by transparency, volunteerism, accountability, and sustainability.',
+          mission2,
           style: GoogleFonts.inter(
             fontSize: 18,
             height: 1.6,
@@ -247,7 +266,9 @@ class AboutPage extends ConsumerWidget {
     ).animate().fadeIn(delay: 400.ms);
   }
 
-  Widget _buildVisionMissionSection() {
+  Widget _buildVisionMissionSection(WidgetRef ref) {
+    final vision = ref.watch(visionProvider);
+    final mission = ref.watch(missionVProvider);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
       color: AppTheme.creamSurface,
@@ -263,8 +284,7 @@ class AboutPage extends ConsumerWidget {
                     flex: isSmall ? 0 : 1,
                     child: _buildVisionMissionCard(
                       title: 'Vision',
-                      content:
-                          'A vibrant, self-reliant, and empowered youth-led community where young people actively contribute to sustainable social and economic development.',
+                      content: vision,
                       icon: Icons.lightbulb_outline,
                     ),
                   ),
@@ -273,8 +293,7 @@ class AboutPage extends ConsumerWidget {
                     flex: isSmall ? 0 : 1,
                     child: _buildVisionMissionCard(
                       title: 'Mission',
-                      content:
-                          'To empower youth with skills, knowledge, and opportunities to deliver sustainable community services that improve livelihoods in order to promote self-reliance and transformation in Uganda.',
+                      content: mission,
                       icon: Icons.rocket_launch_outlined,
                     ),
                   ),
@@ -331,22 +350,16 @@ class AboutPage extends ConsumerWidget {
     ).animate().fadeIn(duration: 800.ms).slideY(begin: 0.1);
   }
 
-  Widget _buildCoreValuesSection() {
-    final values = [
-      {'title': 'Leadership', 'icon': Icons.stars},
-      {'title': 'Participation', 'icon': Icons.groups},
-      {'title': 'Integrity', 'icon': Icons.verified_user},
-      {'title': 'Accountability', 'icon': Icons.assignment_turned_in},
-      {'title': 'Innovation', 'icon': Icons.psychology},
-      {'title': 'Sustainability', 'icon': Icons.eco},
-    ];
+  Widget _buildCoreValuesSection(WidgetRef ref) {
+    final values = ref.watch(valuesProvider);
+    final title = ref.watch(coreTitleProvider);
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
       child: Column(
         children: [
           Text(
-            'Our Core Values',
+            title,
             style: GoogleFonts.libreBaskerville(
               fontSize: 32,
               fontWeight: FontWeight.bold,
@@ -394,14 +407,16 @@ class AboutPage extends ConsumerWidget {
     ).animate().fadeIn(duration: 1200.ms).scale();
   }
 
-  Widget _buildTeamSection() {
+  Widget _buildTeamSection(WidgetRef ref) {
+    final youth = ref.watch(youthProvider);
+    final leaders = ref.watch(teamProvider);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
       color: AppTheme.creamSurface,
       child: Column(
         children: [
           Text(
-            'Meet Our Youth Leaders',
+            youth,
             style: GoogleFonts.libreBaskerville(
               fontSize: 32,
               fontWeight: FontWeight.bold,
@@ -412,35 +427,7 @@ class AboutPage extends ConsumerWidget {
             spacing: 40,
             runSpacing: 40,
             alignment: WrapAlignment.center,
-            children: [
-              _TeamMemberCard(
-                name: 'Jude Augustine Drasiku',
-                role: 'Founder',
-                profile:
-                    'Jude is driven by a deep commitment to community transformation led by youth through practical frameworks and systems to deliver impactful grassroot initiatives. With prior experience from community and education outreaches, he has worked with youth to build confidence and create awareness.',
-                strengths: 'Strategic thinking | Leadership | Proactive action',
-                quote: 'Young people are the catalyst for future change.',
-              ),
-              _TeamMemberCard(
-                name: 'Ayiko Andrew',
-                role: 'Head of Skilling',
-                profile:
-                    'Ayiko Andrew is a software engineer and educator dedicated to bridging the digital divide in rural communities. He designs and implements custom digital curricula to equip youth with 21st-century technical skills, fostering a generation of digital creators rather than just consumers.',
-                strengths:
-                    'Software Engineering | Systems Design | Technical Education',
-                quote: 'Digital proficiency is the modern tool for liberation.',
-              ),
-              _TeamMemberCard(
-                name: 'Apangu Philliam',
-                role: 'Community Lead',
-                profile:
-                    'Apangu Philliam is a specialist in Sustainable Agriculture with a mission to restore local ecosystems and ensure food security. He leads flagship reforestation and climate-smart agriculture programs, bridging the gap between scientific expertise and grassroots implementation.',
-                strengths:
-                    'Sustainable Agriculture | Environmental Restoration | Grassroots Engagement',
-                quote:
-                    'Ecological balance is the foundation of economic empowerment.',
-              ),
-            ],
+            children: leaders,
           ),
         ],
       ),
@@ -510,7 +497,7 @@ class AboutPage extends ConsumerWidget {
       color: AppTheme.creamSurface,
       child: Center(
         child: Text(
-          '© 2026 YESAT NGO. Empowering the youth today.',
+          '© 2026 YESAT Initiative Uganda Ltd. Empowering the youth today.',
           style: TextStyle(color: AppTheme.darkText.withValues(alpha: 0.5)),
         ),
       ),
@@ -518,14 +505,15 @@ class AboutPage extends ConsumerWidget {
   }
 }
 
-class _TeamMemberCard extends StatelessWidget {
+class TeamMemberCard extends StatelessWidget {
   final String name;
   final String role;
   final String profile;
   final String strengths;
   final String quote;
 
-  const _TeamMemberCard({
+  const TeamMemberCard({
+    super.key,
     required this.name,
     required this.role,
     required this.profile,
