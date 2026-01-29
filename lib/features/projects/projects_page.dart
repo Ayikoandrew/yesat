@@ -16,7 +16,7 @@ class ProjectsPage extends ConsumerWidget {
         final isMobile = constraints.maxWidth < 900;
 
         return Scaffold(
-          backgroundColor: AppTheme.creamBackground,
+          backgroundColor: WebTheme.creamBackground,
           drawer: isMobile ? _buildDrawer(ref) : null,
           body: KeyedSubtree(
             key: ValueKey(ModalRoute.of(context)?.isCurrent ?? true),
@@ -45,7 +45,7 @@ class ProjectsPage extends ConsumerWidget {
     return SliverAppBar(
       floating: true,
       pinned: true,
-      backgroundColor: AppTheme.creamSurface.withValues(alpha: 0.9),
+      backgroundColor: WebTheme.creamSurface.withValues(alpha: 0.9),
       leading: isMobile
           ? null
           : IconButton(
@@ -57,7 +57,7 @@ class ProjectsPage extends ConsumerWidget {
         style: GoogleFonts.libreBaskerville(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: AppTheme.darkText,
+          color: WebTheme.darkText,
         ),
       ),
       actions: isMobile
@@ -82,19 +82,19 @@ class ProjectsPage extends ConsumerWidget {
 
   Widget _buildDrawer(WidgetRef ref) {
     return Drawer(
-      backgroundColor: AppTheme.creamBackground,
+      backgroundColor: WebTheme.creamBackground,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: const BoxDecoration(color: AppTheme.creamSurface),
+            decoration: const BoxDecoration(color: WebTheme.creamSurface),
             child: Center(
               child: Text(
                 'YESAT',
                 style: GoogleFonts.libreBaskerville(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  color: AppTheme.darkText,
+                  color: WebTheme.darkText,
                 ),
               ),
             ),
@@ -120,9 +120,9 @@ class ProjectsPage extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
       decoration: BoxDecoration(
-        color: AppTheme.creamSurface,
+        color: WebTheme.creamSurface,
         border: Border(
-          bottom: BorderSide(color: AppTheme.darkText.withValues(alpha: 0.1)),
+          bottom: BorderSide(color: WebTheme.darkText.withValues(alpha: 0.1)),
         ),
       ),
       child: Column(
@@ -143,7 +143,7 @@ class ProjectsPage extends ConsumerWidget {
             style: GoogleFonts.libreBaskerville(
               fontSize: 48,
               fontWeight: FontWeight.bold,
-              color: AppTheme.darkText,
+              color: WebTheme.darkText,
             ),
           ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.3, end: 0),
           const SizedBox(height: 24),
@@ -154,7 +154,7 @@ class ProjectsPage extends ConsumerWidget {
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(
                 fontSize: 18,
-                color: AppTheme.darkText.withValues(alpha: 0.7),
+                color: WebTheme.darkText.withValues(alpha: 0.7),
               ),
             ),
           ).animate().fadeIn(delay: 400.ms).slideY(begin: 0.3, end: 0),
@@ -247,11 +247,11 @@ class ProjectsPage extends ConsumerWidget {
   Widget _buildFooter() {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 24),
-      color: AppTheme.creamSurface,
+      color: WebTheme.creamSurface,
       child: Center(
         child: Text(
           '© 2026 YESAT Initiative Uganda Ltd. Empowering the youth today.',
-          style: TextStyle(color: AppTheme.darkText.withValues(alpha: 0.5)),
+          style: TextStyle(color: WebTheme.darkText.withValues(alpha: 0.5)),
         ),
       ),
     );
@@ -292,7 +292,7 @@ class _ProjectCardState extends State<_ProjectCard> {
         duration: 300.ms,
         padding: const EdgeInsets.all(32),
         decoration: BoxDecoration(
-          color: isHovered ? Colors.white : AppTheme.creamSurface,
+          color: isHovered ? Colors.white : WebTheme.creamSurface,
           borderRadius: BorderRadius.circular(16),
           boxShadow: isHovered
               ? [
@@ -305,7 +305,7 @@ class _ProjectCardState extends State<_ProjectCard> {
               : [],
           border: Border.all(
             color: isHovered
-                ? AppTheme.darkText.withValues(alpha: 0.1)
+                ? WebTheme.darkText.withValues(alpha: 0.1)
                 : Colors.transparent,
           ),
         ),
@@ -315,10 +315,10 @@ class _ProjectCardState extends State<_ProjectCard> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AppTheme.creamBackground,
+                color: WebTheme.creamBackground,
                 shape: BoxShape.circle,
               ),
-              child: Icon(widget.project.icon, color: AppTheme.darkText),
+              child: Icon(widget.project.icon, color: WebTheme.darkText),
             ),
             const SizedBox(height: 24),
             Text(
@@ -338,7 +338,7 @@ class _ProjectCardState extends State<_ProjectCard> {
               style: GoogleFonts.libreBaskerville(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: AppTheme.darkText,
+                color: WebTheme.darkText,
               ),
             ),
             const SizedBox(height: 16),
@@ -349,7 +349,7 @@ class _ProjectCardState extends State<_ProjectCard> {
                 style: GoogleFonts.inter(
                   fontSize: 15,
                   height: 1.6,
-                  color: AppTheme.darkText.withValues(alpha: 0.7),
+                  color: WebTheme.darkText.withValues(alpha: 0.7),
                 ),
               ),
             ),
@@ -391,10 +391,10 @@ class _TestimonialCard extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: 800),
           padding: EdgeInsets.all(isMobile ? 24 : 48),
           decoration: BoxDecoration(
-            color: AppTheme.creamSurface,
+            color: WebTheme.creamSurface,
             borderRadius: BorderRadius.circular(24),
             border: Border.all(
-              color: AppTheme.darkText.withValues(alpha: 0.05),
+              color: WebTheme.darkText.withValues(alpha: 0.05),
             ),
           ),
           child: Column(
@@ -425,7 +425,7 @@ class _TestimonialCard extends StatelessWidget {
               Text(
                 role,
                 style: GoogleFonts.inter(
-                  color: AppTheme.darkText.withValues(alpha: 0.6),
+                  color: WebTheme.darkText.withValues(alpha: 0.6),
                 ),
               ),
             ],
@@ -448,7 +448,7 @@ class _NavBarItem extends StatelessWidget {
       onPressed: onTap,
       child: Text(
         title,
-        style: TextStyle(color: AppTheme.darkText, fontWeight: FontWeight.w600),
+        style: TextStyle(color: WebTheme.darkText, fontWeight: FontWeight.w600),
       ),
     );
   }
@@ -467,7 +467,7 @@ class _DrawerItem extends StatelessWidget {
         title,
         style: const TextStyle(
           fontWeight: FontWeight.w600,
-          color: AppTheme.darkText,
+          color: WebTheme.darkText,
         ),
       ),
       onTap: () {

@@ -43,7 +43,7 @@ class HomePage extends ConsumerWidget {
     return SliverAppBar(
       floating: true,
       pinned: true,
-      backgroundColor: AppTheme.creamSurface.withValues(alpha: 0.9),
+      backgroundColor: WebTheme.creamSurface.withValues(alpha: 0.9),
       leading: isMobile
           ? Builder(
               builder: (context) => IconButton(
@@ -57,7 +57,7 @@ class HomePage extends ConsumerWidget {
         style: GoogleFonts.libreBaskerville(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: AppTheme.darkText,
+          color: WebTheme.darkText,
         ),
       ),
       automaticallyImplyLeading: false,
@@ -95,19 +95,19 @@ class HomePage extends ConsumerWidget {
 
   Widget _buildDrawer(WidgetRef ref) {
     return Drawer(
-      backgroundColor: AppTheme.creamBackground,
+      backgroundColor: WebTheme.creamBackground,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: const BoxDecoration(color: AppTheme.creamSurface),
+            decoration: const BoxDecoration(color: WebTheme.creamSurface),
             child: Center(
               child: Text(
                 'YESAT',
                 style: GoogleFonts.libreBaskerville(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  color: AppTheme.darkText,
+                  color: WebTheme.darkText,
                 ),
               ),
             ),
@@ -162,7 +162,7 @@ class HomePage extends ConsumerWidget {
         return Container(
           height: 600,
           width: double.infinity,
-          color: AppTheme.creamBackground,
+          color: WebTheme.creamBackground,
           child: Stack(
             children: [
               Positioned.fill(
@@ -176,10 +176,10 @@ class HomePage extends ConsumerWidget {
                     fit: BoxFit.cover,
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) return child;
-                      return Container(color: AppTheme.creamBackground);
+                      return Container(color: WebTheme.creamBackground);
                     },
                     errorBuilder: (context, error, stackTrace) {
-                      return Container(color: AppTheme.creamBackground);
+                      return Container(color: WebTheme.creamBackground);
                     },
                   ),
                 ),
@@ -198,7 +198,7 @@ class HomePage extends ConsumerWidget {
                               fontSize: headlineFontSize,
                               height: 1.1,
                               fontWeight: FontWeight.bold,
-                              color: AppTheme.darkText,
+                              color: WebTheme.darkText,
                             ),
                           )
                           .animate()
@@ -214,7 +214,7 @@ class HomePage extends ConsumerWidget {
                             textAlign: TextAlign.center,
                             style: GoogleFonts.inter(
                               fontSize: subtitleFontSize,
-                              color: AppTheme.darkText.withValues(alpha: 0.7),
+                              color: WebTheme.darkText.withValues(alpha: 0.7),
                             ),
                           )
                           .animate()
@@ -245,7 +245,7 @@ class HomePage extends ConsumerWidget {
                               OutlinedButton(
                                 onPressed: () {},
                                 style: OutlinedButton.styleFrom(
-                                  side: BorderSide(color: AppTheme.darkText),
+                                  side: BorderSide(color: WebTheme.darkText),
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 40,
                                     vertical: 20,
@@ -256,7 +256,7 @@ class HomePage extends ConsumerWidget {
                                 ),
                                 child: Text(
                                   'Join Us',
-                                  style: TextStyle(color: AppTheme.darkText),
+                                  style: TextStyle(color: WebTheme.darkText),
                                 ),
                               ),
                             ],
@@ -300,7 +300,7 @@ class HomePage extends ConsumerWidget {
               style: GoogleFonts.inter(
                 fontSize: 18,
                 height: 1.6,
-                color: AppTheme.darkText.withValues(alpha: 0.7),
+                color: WebTheme.darkText.withValues(alpha: 0.7),
               ),
             ),
           ).animate().fadeIn(delay: 400.ms),
@@ -310,21 +310,21 @@ class HomePage extends ConsumerWidget {
             runSpacing: 30,
             alignment: WrapAlignment.center,
             children: [
-              _VisionCard(
+              VisionCard(
                 icon: Icons.lightbulb,
                 title: 'Empowerment',
                 description:
                     'Equipping youth with skills, knowledge, and opportunities.',
                 delay: 200.ms,
               ),
-              _VisionCard(
+              VisionCard(
                 icon: Icons.eco,
                 title: 'Sustainability',
                 description:
                     'Action for long-term social and economic transformation.',
                 delay: 400.ms,
               ),
-              _VisionCard(
+              VisionCard(
                 icon: Icons.volunteer_activism,
                 title: 'Self-Reliance',
                 description:
@@ -341,7 +341,7 @@ class HomePage extends ConsumerWidget {
   Widget _buildImpactSection(Map<String, String> impact) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80),
-      color: AppTheme.darkText,
+      color: WebTheme.darkText,
       child: Column(
         children: [
           Text(
@@ -349,7 +349,7 @@ class HomePage extends ConsumerWidget {
             style: GoogleFonts.libreBaskerville(
               fontSize: 32,
               fontWeight: FontWeight.bold,
-              color: AppTheme.creamBackground,
+              color: WebTheme.creamBackground,
             ),
           ).animate().fadeIn(duration: 1200.ms),
           const SizedBox(height: 40),
@@ -374,7 +374,7 @@ class HomePage extends ConsumerWidget {
                 delay: 600.ms,
               ),
             ],
-          ),
+          ).animate().fadeIn(delay: 600.ms).scaleX(),
         ],
       ),
     );
@@ -384,7 +384,7 @@ class HomePage extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 24),
       decoration: BoxDecoration(
-        color: AppTheme.accentGold.withValues(alpha: 0.1),
+        color: WebTheme.accentGold.withValues(alpha: 0.1),
       ),
       child: Column(
         children: [
@@ -393,7 +393,7 @@ class HomePage extends ConsumerWidget {
             style: GoogleFonts.libreBaskerville(
               fontSize: 36,
               fontWeight: FontWeight.bold,
-              color: AppTheme.darkText,
+              color: WebTheme.darkText,
             ),
           ).animate().fadeIn().scale(begin: const Offset(0.9, 0.9)),
           const SizedBox(height: 24),
@@ -402,7 +402,7 @@ class HomePage extends ConsumerWidget {
             textAlign: TextAlign.center,
             style: GoogleFonts.inter(
               fontSize: 18,
-              color: AppTheme.darkText.withValues(alpha: 0.7),
+              color: WebTheme.darkText.withValues(alpha: 0.7),
             ),
           ),
           const SizedBox(height: 48),
@@ -429,12 +429,12 @@ class HomePage extends ConsumerWidget {
   Widget _buildFooter(String title) {
     return Container(
       padding: const EdgeInsets.all(40),
-      color: AppTheme.creamSurface,
+      color: WebTheme.creamSurface,
       child: Column(
         children: [
           Text(
             '© 2026 $title. All rights reserved.',
-            style: TextStyle(color: AppTheme.darkText.withValues(alpha: 0.5)),
+            style: TextStyle(color: WebTheme.darkText.withValues(alpha: 0.5)),
           ),
           const SizedBox(height: 10),
           Row(
@@ -472,7 +472,7 @@ class _NavBarItem extends StatelessWidget {
               title,
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
-                color: AppTheme.darkText,
+                color: WebTheme.darkText,
               ),
             ),
           ),
@@ -495,7 +495,7 @@ class _DrawerItem extends StatelessWidget {
         title,
         style: const TextStyle(
           fontWeight: FontWeight.w600,
-          color: AppTheme.darkText,
+          color: WebTheme.darkText,
         ),
       ),
       onTap: () {
@@ -506,13 +506,14 @@ class _DrawerItem extends StatelessWidget {
   }
 }
 
-class _VisionCard extends StatelessWidget {
+class VisionCard extends StatelessWidget {
   final IconData icon;
   final String title;
   final String description;
   final Duration delay;
 
-  const _VisionCard({
+  const VisionCard({
+    super.key,
     required this.icon,
     required this.title,
     required this.description,
@@ -525,7 +526,7 @@ class _VisionCard extends StatelessWidget {
           width: 300,
           padding: const EdgeInsets.all(32),
           decoration: BoxDecoration(
-            color: AppTheme.creamSurface,
+            color: WebTheme.creamSurface,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
@@ -537,7 +538,7 @@ class _VisionCard extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Icon(icon, size: 48, color: AppTheme.accentGold),
+              Icon(icon, size: 48, color: WebTheme.accentGold),
               const SizedBox(height: 24),
               Text(
                 title,
@@ -551,7 +552,7 @@ class _VisionCard extends StatelessWidget {
                 description,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: AppTheme.darkText.withValues(alpha: 0.7),
+                  color: WebTheme.darkText.withValues(alpha: 0.7),
                 ),
               ),
             ],
@@ -583,7 +584,7 @@ class _ImpactStat extends StatelessWidget {
               style: GoogleFonts.libreBaskerville(
                 fontSize: 48,
                 fontWeight: FontWeight.bold,
-                color: AppTheme.creamBackground,
+                color: WebTheme.creamBackground,
               ),
             ),
             const SizedBox(height: 8),
@@ -592,7 +593,7 @@ class _ImpactStat extends StatelessWidget {
               style: GoogleFonts.inter(
                 letterSpacing: 1.5,
                 fontSize: 14,
-                color: AppTheme.creamBackground.withValues(alpha: 0.6),
+                color: WebTheme.creamBackground.withValues(alpha: 0.6),
               ),
             ),
           ],
@@ -607,7 +608,7 @@ class _SubtlePatternPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = AppTheme.darkText.withValues(alpha: 0.03)
+      ..color = WebTheme.darkText.withValues(alpha: 0.03)
       ..strokeWidth = 1.0;
 
     const double gap = 40.0;

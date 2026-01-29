@@ -16,7 +16,7 @@ class ImpactPage extends ConsumerWidget {
         final isMobile = constraints.maxWidth < 900;
 
         return Scaffold(
-          backgroundColor: AppTheme.creamBackground,
+          backgroundColor: WebTheme.creamBackground,
           drawer: isMobile ? _buildDrawer(ref) : null,
           body: KeyedSubtree(
             key: ValueKey(ModalRoute.of(context)?.isCurrent ?? true),
@@ -41,11 +41,11 @@ class ImpactPage extends ConsumerWidget {
     return SliverAppBar(
       floating: true,
       pinned: true,
-      backgroundColor: AppTheme.creamSurface.withValues(alpha: 0.9),
+      backgroundColor: WebTheme.creamSurface.withValues(alpha: 0.9),
       leading: isMobile
           ? null
           : IconButton(
-              icon: const Icon(Icons.arrow_back, color: AppTheme.darkText),
+              icon: const Icon(Icons.arrow_back, color: WebTheme.darkText),
               onPressed: () => ref.read(coordinatorProvider).pop(),
             ),
       title: Text(
@@ -53,7 +53,7 @@ class ImpactPage extends ConsumerWidget {
         style: GoogleFonts.libreBaskerville(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: AppTheme.darkText,
+          color: WebTheme.darkText,
         ),
       ),
       actions: isMobile
@@ -75,19 +75,19 @@ class ImpactPage extends ConsumerWidget {
 
   Widget _buildDrawer(WidgetRef ref) {
     return Drawer(
-      backgroundColor: AppTheme.creamBackground,
+      backgroundColor: WebTheme.creamBackground,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: const BoxDecoration(color: AppTheme.creamSurface),
+            decoration: const BoxDecoration(color: WebTheme.creamSurface),
             child: Center(
               child: Text(
                 'YESAT',
                 style: GoogleFonts.libreBaskerville(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  color: AppTheme.darkText,
+                  color: WebTheme.darkText,
                 ),
               ),
             ),
@@ -109,13 +109,13 @@ class ImpactPage extends ConsumerWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 120, horizontal: 24),
-      decoration: BoxDecoration(color: AppTheme.creamSurface),
+      decoration: BoxDecoration(color: WebTheme.creamSurface),
       child: Column(
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: AppTheme.accentGold.withValues(alpha: 0.1),
+              color: WebTheme.accentGold.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
@@ -124,7 +124,7 @@ class ImpactPage extends ConsumerWidget {
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 2,
-                color: AppTheme.accentGold,
+                color: WebTheme.accentGold,
               ),
             ),
           ).animate().fadeIn().scale(),
@@ -136,7 +136,7 @@ class ImpactPage extends ConsumerWidget {
               fontSize: 56,
               fontWeight: FontWeight.bold,
               height: 1.1,
-              color: AppTheme.darkText,
+              color: WebTheme.darkText,
             ),
           ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.2),
           const SizedBox(height: 32),
@@ -147,7 +147,7 @@ class ImpactPage extends ConsumerWidget {
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(
                 fontSize: 20,
-                color: AppTheme.darkText.withValues(alpha: 0.7),
+                color: WebTheme.darkText.withValues(alpha: 0.7),
               ),
             ),
           ).animate().fadeIn(delay: 400.ms).slideY(begin: 0.2),
@@ -202,7 +202,7 @@ class ImpactPage extends ConsumerWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
-      color: AppTheme.creamSurface,
+      color: WebTheme.creamSurface,
       child: Column(
         children: [
           Text(
@@ -217,7 +217,7 @@ class ImpactPage extends ConsumerWidget {
             'Serving vulnerable groups within our communities.',
             style: GoogleFonts.inter(
               fontSize: 18,
-              color: AppTheme.darkText.withValues(alpha: 0.6),
+              color: WebTheme.darkText.withValues(alpha: 0.6),
             ),
           ),
           const SizedBox(height: 60),
@@ -275,14 +275,14 @@ class ImpactPage extends ConsumerWidget {
   Widget _buildDataVisuals() {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 24),
-      color: AppTheme.darkText,
+      color: WebTheme.darkText,
       child: Column(
         children: [
           Text(
             'Growth Over Time',
             style: GoogleFonts.libreBaskerville(
               fontSize: 32,
-              color: AppTheme.creamBackground,
+              color: WebTheme.creamBackground,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -304,7 +304,7 @@ class ImpactPage extends ConsumerWidget {
           Text(
             'Beneficiary Growth (Thousands)',
             style: GoogleFonts.inter(
-              color: AppTheme.creamBackground.withValues(alpha: 0.5),
+              color: WebTheme.creamBackground.withValues(alpha: 0.5),
               fontSize: 14,
             ),
           ),
@@ -316,11 +316,11 @@ class ImpactPage extends ConsumerWidget {
   Widget _buildFooter() {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 60),
-      color: AppTheme.creamSurface,
+      color: WebTheme.creamSurface,
       child: Center(
         child: Text(
           '© 2026 YESAT Initiative Uganda Ltd. Empowering the youth today.',
-          style: TextStyle(color: AppTheme.darkText.withValues(alpha: 0.5)),
+          style: TextStyle(color: WebTheme.darkText.withValues(alpha: 0.5)),
         ),
       ),
     );
@@ -338,13 +338,13 @@ class _ObjectiveCard extends StatelessWidget {
       width: 280,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: AppTheme.creamBackground,
+        color: WebTheme.creamBackground,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppTheme.accentGold.withValues(alpha: 0.2)),
+        border: Border.all(color: WebTheme.accentGold.withValues(alpha: 0.2)),
       ),
       child: Row(
         children: [
-          const Icon(Icons.check_circle_outline, color: AppTheme.accentGold),
+          const Icon(Icons.check_circle_outline, color: WebTheme.accentGold),
           const SizedBox(width: 16),
           Expanded(
             child: Text(
@@ -352,7 +352,7 @@ class _ObjectiveCard extends StatelessWidget {
               style: GoogleFonts.inter(
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
-                color: AppTheme.darkText,
+                color: WebTheme.darkText,
               ),
             ),
           ),
@@ -375,7 +375,7 @@ class _BeneficiaryIcon extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
-            color: AppTheme.creamBackground,
+            color: WebTheme.creamBackground,
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
@@ -384,7 +384,7 @@ class _BeneficiaryIcon extends StatelessWidget {
               ),
             ],
           ),
-          child: Icon(icon, color: AppTheme.accentGold, size: 32),
+          child: Icon(icon, color: WebTheme.accentGold, size: 32),
         ),
         const SizedBox(height: 16),
         Text(
@@ -393,7 +393,7 @@ class _BeneficiaryIcon extends StatelessWidget {
           style: GoogleFonts.inter(
             fontSize: 14,
             fontWeight: FontWeight.bold,
-            color: AppTheme.darkText,
+            color: WebTheme.darkText,
           ),
         ),
       ],
@@ -420,7 +420,7 @@ class _PillarDetail extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppTheme.darkText.withValues(alpha: 0.05)),
+        border: Border.all(color: WebTheme.darkText.withValues(alpha: 0.05)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -438,14 +438,14 @@ class _PillarDetail extends StatelessWidget {
             style: GoogleFonts.inter(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: AppTheme.accentGold,
+              color: WebTheme.accentGold,
             ),
           ),
           const SizedBox(height: 16),
           Text(
             desc,
             style: TextStyle(
-              color: AppTheme.darkText.withValues(alpha: 0.7),
+              color: WebTheme.darkText.withValues(alpha: 0.7),
               height: 1.6,
             ),
           ),
@@ -469,7 +469,7 @@ class _ChartBar extends StatelessWidget {
           width: 60,
           height: height,
           decoration: BoxDecoration(
-            color: AppTheme.accentGold,
+            color: WebTheme.accentGold,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
           ),
         ).animate().scaleY(
@@ -481,7 +481,7 @@ class _ChartBar extends StatelessWidget {
         const SizedBox(height: 12),
         Text(
           label,
-          style: TextStyle(color: AppTheme.creamBackground, fontSize: 13),
+          style: TextStyle(color: WebTheme.creamBackground, fontSize: 13),
         ),
       ],
     );
@@ -500,7 +500,7 @@ class _NavBarItem extends StatelessWidget {
       onPressed: onTap,
       child: Text(
         title,
-        style: TextStyle(color: AppTheme.darkText, fontWeight: FontWeight.w600),
+        style: TextStyle(color: WebTheme.darkText, fontWeight: FontWeight.w600),
       ),
     );
   }
@@ -519,7 +519,7 @@ class _DrawerItem extends StatelessWidget {
         title,
         style: const TextStyle(
           fontWeight: FontWeight.w600,
-          color: AppTheme.darkText,
+          color: WebTheme.darkText,
         ),
       ),
       onTap: () {
