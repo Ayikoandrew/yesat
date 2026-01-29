@@ -19,7 +19,7 @@ class YesatApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Yesat NGO',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
+      theme: WebTheme.lightTheme,
       routerDelegate: coordinator.routerDelegate,
       routeInformationParser: coordinator.routeInformationParser,
       restorationScopeId: 'yesat_app',
