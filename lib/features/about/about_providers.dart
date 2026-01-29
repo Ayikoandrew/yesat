@@ -89,5 +89,22 @@ final teamProvider = Provider<List<TeamMemberCard>>((ref) {
           'Sustainable Agriculture | Environmental Restoration | Grassroots Engagement',
       quote: 'Ecological balance is the foundation of economic empowerment.',
     ),
+    TeamMemberCard(
+      name: 'Indricia Cynthia Onama',
+      role: 'Legal Advisor',
+      profile:
+          'Cynthia is an emerging legal professional with experience in legal research, drafting and policy support. She has a passion for human rights, gender equity and development oriented advocacy.',
+      strengths: 'Resilience | Multitasking | Empathy ',
+      quote: 'Cowards don’t make history.',
+    ),
+    TeamMemberCard(
+      name: 'Lenia Christine',
+      role: 'Member',
+      profile:
+          'Christine is an accomplished community development professional and social justice advocate with demonstrated competence in gender mainstreaming, adolescent and youth empowerment, and promoting growth and resilience among young people.',
+      strengths:
+          'Strategic Planning |Team leadership | Gender mainstreaming| Policy Advocacy | Partnership Development',
+      quote: 'Empowering Youth , for an Empowered Future',
+    ),
   ];
 });

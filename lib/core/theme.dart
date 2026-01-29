@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AppTheme {
-  // Main Color: Cream
+class WebTheme {
   static const Color creamBackground = Color(0xFFFFFDD0);
   static const Color creamSurface = Color(0xFFF5F5DC);
   static const Color darkText = Color(0xFF2D2926);

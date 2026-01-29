@@ -42,11 +42,11 @@ class AboutPage extends ConsumerWidget {
     return SliverAppBar(
       floating: true,
       pinned: true,
-      backgroundColor: AppTheme.creamSurface.withValues(alpha: 0.9),
+      backgroundColor: WebTheme.creamSurface.withValues(alpha: 0.9),
       leading: isMobile
           ? null
           : IconButton(
-              icon: const Icon(Icons.arrow_back, color: AppTheme.darkText),
+              icon: const Icon(Icons.arrow_back, color: WebTheme.darkText),
               onPressed: () => ref.read(coordinatorProvider).pop(),
             ),
       title: Text(
@@ -54,7 +54,7 @@ class AboutPage extends ConsumerWidget {
         style: GoogleFonts.libreBaskerville(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: AppTheme.darkText,
+          color: WebTheme.darkText,
         ),
       ),
       actions: isMobile
@@ -80,19 +80,19 @@ class AboutPage extends ConsumerWidget {
 
   Widget _buildDrawer(WidgetRef ref) {
     return Drawer(
-      backgroundColor: AppTheme.creamBackground,
+      backgroundColor: WebTheme.creamBackground,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: const BoxDecoration(color: AppTheme.creamSurface),
+            decoration: const BoxDecoration(color: WebTheme.creamSurface),
             child: Center(
               child: Text(
                 'YESAT',
                 style: GoogleFonts.libreBaskerville(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  color: AppTheme.darkText,
+                  color: WebTheme.darkText,
                 ),
               ),
             ),
@@ -125,7 +125,7 @@ class AboutPage extends ConsumerWidget {
     final vibrant = ref.watch(vibrantProvider);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 40),
-      color: AppTheme.creamBackground,
+      color: WebTheme.creamBackground,
       child: Column(
         children: [
           Text(
@@ -134,7 +134,7 @@ class AboutPage extends ConsumerWidget {
             style: GoogleFonts.libreBaskerville(
               fontSize: 32,
               fontWeight: FontWeight.bold,
-              color: AppTheme.darkText,
+              color: WebTheme.darkText,
             ),
           ).animate().fadeIn(duration: 1200.ms).slideY(begin: 0.2),
           const SizedBox(height: 24),
@@ -145,14 +145,14 @@ class AboutPage extends ConsumerWidget {
               fontSize: 18,
               letterSpacing: 4,
               fontWeight: FontWeight.w300,
-              color: AppTheme.accentGold,
+              color: WebTheme.accentGold,
             ),
           ).animate().fadeIn(delay: 400.ms),
           const SizedBox(height: 24),
           Container(
             width: 80,
             height: 4,
-            color: AppTheme.accentGold,
+            color: WebTheme.accentGold,
           ).animate().fadeIn(delay: 600.ms).scaleX(),
         ],
       ),
@@ -213,7 +213,7 @@ class AboutPage extends ConsumerWidget {
           style: GoogleFonts.inter(
             fontSize: 18,
             height: 1.6,
-            color: AppTheme.darkText.withValues(alpha: 0.8),
+            color: WebTheme.darkText.withValues(alpha: 0.8),
           ),
         ),
         const SizedBox(height: 24),
@@ -222,7 +222,7 @@ class AboutPage extends ConsumerWidget {
           style: GoogleFonts.inter(
             fontSize: 18,
             height: 1.6,
-            color: AppTheme.darkText.withValues(alpha: 0.8),
+            color: WebTheme.darkText.withValues(alpha: 0.8),
           ),
         ),
       ],
@@ -241,7 +241,7 @@ class AboutPage extends ConsumerWidget {
           style: GoogleFonts.inter(
             fontSize: 18,
             height: 1.6,
-            color: AppTheme.darkText.withValues(alpha: 0.8),
+            color: WebTheme.darkText.withValues(alpha: 0.8),
           ),
         ),
         const SizedBox(height: 24),
@@ -250,7 +250,7 @@ class AboutPage extends ConsumerWidget {
           style: GoogleFonts.inter(
             fontSize: 18,
             height: 1.6,
-            color: AppTheme.darkText.withValues(alpha: 0.8),
+            color: WebTheme.darkText.withValues(alpha: 0.8),
           ),
         ),
         const SizedBox(height: 24),
@@ -259,7 +259,7 @@ class AboutPage extends ConsumerWidget {
           style: GoogleFonts.inter(
             fontSize: 18,
             height: 1.6,
-            color: AppTheme.darkText.withValues(alpha: 0.8),
+            color: WebTheme.darkText.withValues(alpha: 0.8),
           ),
         ),
       ],
@@ -271,7 +271,7 @@ class AboutPage extends ConsumerWidget {
     final mission = ref.watch(missionVProvider);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
-      color: AppTheme.creamSurface,
+      color: WebTheme.creamSurface,
       child: LayoutBuilder(
         builder: (context, constraints) {
           final isSmall = constraints.maxWidth < 700;
@@ -314,7 +314,7 @@ class AboutPage extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(40),
       decoration: BoxDecoration(
-        color: AppTheme.creamBackground,
+        color: WebTheme.creamBackground,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
@@ -327,7 +327,7 @@ class AboutPage extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: AppTheme.accentGold, size: 40),
+          Icon(icon, color: WebTheme.accentGold, size: 40),
           const SizedBox(height: 24),
           Text(
             title,
@@ -342,7 +342,7 @@ class AboutPage extends ConsumerWidget {
             style: GoogleFonts.inter(
               fontSize: 17,
               height: 1.6,
-              color: AppTheme.darkText.withValues(alpha: 0.8),
+              color: WebTheme.darkText.withValues(alpha: 0.8),
             ),
           ),
         ],
@@ -389,7 +389,7 @@ class AboutPage extends ConsumerWidget {
       height: 400,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: AppTheme.creamSurface,
+        color: WebTheme.creamSurface,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
@@ -402,7 +402,7 @@ class AboutPage extends ConsumerWidget {
       child: const Icon(
         Icons.history_edu,
         size: 100,
-        color: AppTheme.accentGold,
+        color: WebTheme.accentGold,
       ),
     ).animate().fadeIn(duration: 1200.ms).scale();
   }
@@ -412,7 +412,7 @@ class AboutPage extends ConsumerWidget {
     final leaders = ref.watch(teamProvider);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
-      color: AppTheme.creamSurface,
+      color: WebTheme.creamSurface,
       child: Column(
         children: [
           Text(
@@ -445,7 +445,7 @@ class AboutPage extends ConsumerWidget {
             horizontal: isMobile ? 20 : 40,
           ),
           child: Card(
-            color: AppTheme.darkText,
+            color: WebTheme.darkText,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(24),
             ),
@@ -459,7 +459,7 @@ class AboutPage extends ConsumerWidget {
                     style: GoogleFonts.libreBaskerville(
                       fontSize: isMobile ? 24 : 32,
                       fontWeight: FontWeight.bold,
-                      color: AppTheme.creamBackground,
+                      color: WebTheme.creamBackground,
                     ),
                   ),
                   const SizedBox(height: 24),
@@ -468,7 +468,7 @@ class AboutPage extends ConsumerWidget {
                     textAlign: TextAlign.center,
                     style: GoogleFonts.inter(
                       fontSize: isMobile ? 16 : 18,
-                      color: AppTheme.creamBackground.withValues(alpha: 0.8),
+                      color: WebTheme.creamBackground.withValues(alpha: 0.8),
                     ),
                   ),
                   const SizedBox(height: 48),
@@ -494,11 +494,11 @@ class AboutPage extends ConsumerWidget {
   Widget _buildFooter() {
     return Container(
       padding: const EdgeInsets.all(40),
-      color: AppTheme.creamSurface,
+      color: WebTheme.creamSurface,
       child: Center(
         child: Text(
           '© 2026 YESAT Initiative Uganda Ltd. Empowering the youth today.',
-          style: TextStyle(color: AppTheme.darkText.withValues(alpha: 0.5)),
+          style: TextStyle(color: WebTheme.darkText.withValues(alpha: 0.5)),
         ),
       ),
     );
@@ -530,7 +530,7 @@ class TeamMemberCard extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: 600),
           padding: const EdgeInsets.all(40),
           decoration: BoxDecoration(
-            color: AppTheme.creamBackground,
+            color: WebTheme.creamBackground,
             borderRadius: BorderRadius.circular(24),
           ),
           child: Column(
@@ -549,11 +549,11 @@ class TeamMemberCard extends StatelessWidget {
               Center(
                 child: CircleAvatar(
                   radius: 60,
-                  backgroundColor: AppTheme.accentGold.withValues(alpha: 0.1),
+                  backgroundColor: WebTheme.accentGold.withValues(alpha: 0.1),
                   child: const Icon(
                     Icons.person,
                     size: 60,
-                    color: AppTheme.accentGold,
+                    color: WebTheme.accentGold,
                   ),
                 ),
               ),
@@ -575,7 +575,7 @@ class TeamMemberCard extends StatelessWidget {
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 2,
-                        color: AppTheme.accentGold,
+                        color: WebTheme.accentGold,
                       ),
                     ),
                   ],
@@ -594,7 +594,7 @@ class TeamMemberCard extends StatelessWidget {
                         style: GoogleFonts.inter(
                           fontSize: 16,
                           height: 1.8,
-                          color: AppTheme.darkText.withValues(alpha: 0.8),
+                          color: WebTheme.darkText.withValues(alpha: 0.8),
                         ),
                       ),
                       const SizedBox(height: 24),
@@ -604,17 +604,17 @@ class TeamMemberCard extends StatelessWidget {
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 0.5,
-                          color: AppTheme.darkText,
+                          color: WebTheme.darkText,
                         ),
                       ),
                       const SizedBox(height: 32),
                       Container(
                         padding: const EdgeInsets.all(24),
                         decoration: BoxDecoration(
-                          color: AppTheme.accentGold.withValues(alpha: 0.05),
+                          color: WebTheme.accentGold.withValues(alpha: 0.05),
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(
-                            color: AppTheme.accentGold.withValues(alpha: 0.1),
+                            color: WebTheme.accentGold.withValues(alpha: 0.1),
                           ),
                         ),
                         child: Text(
@@ -623,7 +623,7 @@ class TeamMemberCard extends StatelessWidget {
                           style: GoogleFonts.libreBaskerville(
                             fontSize: 18,
                             fontStyle: FontStyle.italic,
-                            color: AppTheme.darkText,
+                            color: WebTheme.darkText,
                           ),
                         ),
                       ),
@@ -647,19 +647,19 @@ class TeamMemberCard extends StatelessWidget {
         width: 280,
         padding: const EdgeInsets.all(32),
         decoration: BoxDecoration(
-          color: AppTheme.creamBackground,
+          color: WebTheme.creamBackground,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: AppTheme.accentGold.withValues(alpha: 0.2)),
+          border: Border.all(color: WebTheme.accentGold.withValues(alpha: 0.2)),
         ),
         child: Column(
           children: [
             CircleAvatar(
               radius: 40,
-              backgroundColor: AppTheme.accentGold.withValues(alpha: 0.1),
+              backgroundColor: WebTheme.accentGold.withValues(alpha: 0.1),
               child: const Icon(
                 Icons.person,
                 size: 40,
-                color: AppTheme.accentGold,
+                color: WebTheme.accentGold,
               ),
             ),
             const SizedBox(height: 24),
@@ -677,7 +677,7 @@ class TeamMemberCard extends StatelessWidget {
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 1.2,
-                color: AppTheme.accentGold,
+                color: WebTheme.accentGold,
               ),
             ),
             const SizedBox(height: 16),
@@ -689,7 +689,7 @@ class TeamMemberCard extends StatelessWidget {
               style: GoogleFonts.libreBaskerville(
                 fontSize: 13,
                 fontStyle: FontStyle.italic,
-                color: AppTheme.darkText.withValues(alpha: 0.7),
+                color: WebTheme.darkText.withValues(alpha: 0.7),
               ),
             ),
             const SizedBox(height: 20),
@@ -698,7 +698,7 @@ class TeamMemberCard extends StatelessWidget {
               style: GoogleFonts.inter(
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
-                color: AppTheme.accentGold,
+                color: WebTheme.accentGold,
               ),
             ),
           ],
@@ -720,7 +720,7 @@ class _NavBarItem extends StatelessWidget {
       onPressed: onTap,
       child: Text(
         title,
-        style: TextStyle(color: AppTheme.darkText, fontWeight: FontWeight.w600),
+        style: TextStyle(color: WebTheme.darkText, fontWeight: FontWeight.w600),
       ),
     );
   }
@@ -739,7 +739,7 @@ class _DrawerItem extends StatelessWidget {
         title,
         style: const TextStyle(
           fontWeight: FontWeight.w600,
-          color: AppTheme.darkText,
+          color: WebTheme.darkText,
         ),
       ),
       onTap: () {
@@ -762,20 +762,20 @@ class _CoreValueCard extends StatelessWidget {
       width: 180,
       padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
       decoration: BoxDecoration(
-        color: AppTheme.creamSurface,
+        color: WebTheme.creamSurface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppTheme.accentGold.withValues(alpha: 0.1)),
+        border: Border.all(color: WebTheme.accentGold.withValues(alpha: 0.1)),
       ),
       child: Column(
         children: [
-          Icon(icon, color: AppTheme.accentGold, size: 32),
+          Icon(icon, color: WebTheme.accentGold, size: 32),
           const SizedBox(height: 16),
           Text(
             title,
             style: GoogleFonts.inter(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: AppTheme.darkText,
+              color: WebTheme.darkText,
             ),
           ),
         ],
@@ -793,9 +793,9 @@ class _TransparencyButton extends StatelessWidget {
     return OutlinedButton(
       onPressed: () {},
       style: OutlinedButton.styleFrom(
-        side: const BorderSide(color: AppTheme.creamBackground),
+        side: const BorderSide(color: WebTheme.creamBackground),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        foregroundColor: AppTheme.creamBackground,
+        foregroundColor: WebTheme.creamBackground,
       ),
       child: Text(label),
     );
