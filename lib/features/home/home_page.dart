@@ -27,10 +27,10 @@ class HomePage extends ConsumerWidget {
               slivers: [
                 _buildAppBar(ref, ngoName, isMobile),
                 SliverToBoxAdapter(child: _buildHeroSection(ref)),
-                SliverToBoxAdapter(child: _buildVisionSection()),
-                SliverToBoxAdapter(child: _buildImpactSection(impact)),
-                SliverToBoxAdapter(child: _buildCTASection()),
-                SliverToBoxAdapter(child: _buildFooter(ngoName)),
+                SliverToBoxAdapter(child: _buildVisionSection(ref)),
+                SliverToBoxAdapter(child: _buildImpactSection(ref, impact)),
+                SliverToBoxAdapter(child: _buildCTASection(ref)),
+                SliverToBoxAdapter(child: _buildFooter(ref, ngoName)),
               ],
             ),
           ),
@@ -145,6 +145,10 @@ class HomePage extends ConsumerWidget {
   }
 
   Widget _buildHeroSection(WidgetRef ref) {
+    final slogan = ref.watch(sloganProvider);
+    final desc = ref.watch(descriptionProvider);
+    final image = ref.watch(imageProvider);
+
     return LayoutBuilder(
       builder: (context, constraints) {
         final screenWidth = constraints.maxWidth;
@@ -172,7 +176,7 @@ class HomePage extends ConsumerWidget {
                 child: Opacity(
                   opacity: 0.25,
                   child: Image.network(
-                    'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2000&auto=format&fit=crop',
+                    image,
                     fit: BoxFit.cover,
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) return child;
@@ -192,7 +196,7 @@ class HomePage extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                            'Empowering Youth,\nIgniting Change.',
+                            slogan,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.libreBaskerville(
                               fontSize: headlineFontSize,
@@ -210,7 +214,7 @@ class HomePage extends ConsumerWidget {
                           ),
                       const SizedBox(height: 24),
                       Text(
-                            'Youth Empowerment through Sustainable Action for Transformation (YESAT) Initiative Uganda Ltd\nis a youth-led NGO dedicated to fostering leadership,\ninnovation, and sustainable development across communities.',
+                            desc,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.inter(
                               fontSize: subtitleFontSize,
@@ -278,7 +282,9 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  Widget _buildVisionSection() {
+  Widget _buildVisionSection(WidgetRef ref) {
+    final vision = ref.watch(visionProvider);
+    final visions = ref.watch(visionCardProvider);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
       color: Colors.white.withValues(alpha: 0.3),
@@ -295,7 +301,7 @@ class HomePage extends ConsumerWidget {
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 800),
             child: Text(
-              'A vibrant, self-reliant, and empowered youth-led community where young people actively contribute to sustainable development.',
+              vision,
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(
                 fontSize: 18,
@@ -306,39 +312,21 @@ class HomePage extends ConsumerWidget {
           ).animate().fadeIn(delay: 400.ms),
           const SizedBox(height: 60),
           Wrap(
-            spacing: 30,
-            runSpacing: 30,
-            alignment: WrapAlignment.center,
-            children: [
-              VisionCard(
-                icon: Icons.lightbulb,
-                title: 'Empowerment',
-                description:
-                    'Equipping youth with skills, knowledge, and opportunities.',
-                delay: 200.ms,
-              ),
-              VisionCard(
-                icon: Icons.eco,
-                title: 'Sustainability',
-                description:
-                    'Action for long-term social and economic transformation.',
-                delay: 400.ms,
-              ),
-              VisionCard(
-                icon: Icons.volunteer_activism,
-                title: 'Self-Reliance',
-                description:
-                    'Transforming communities into states of independent growth.',
-                delay: 600.ms,
-              ),
-            ],
-          ).animate().fadeIn(delay: (200).ms, duration: 800.ms).slideY(begin: 0.2, end: 0),
+                spacing: 30,
+                runSpacing: 30,
+                alignment: WrapAlignment.center,
+                children: visions,
+              )
+              .animate()
+              .fadeIn(duration: 1500.ms)
+              .slideY(begin: 0.3, end: 0, curve: Curves.easeOutExpo),
         ],
       ),
     );
   }
 
-  Widget _buildImpactSection(Map<String, String> impact) {
+  Widget _buildImpactSection(WidgetRef ref, Map<String, String> impact) {
+    final impacts = ref.watch(impactStatProvider(impact));
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80),
       color: WebTheme.darkText,
@@ -357,30 +345,15 @@ class HomePage extends ConsumerWidget {
             alignment: WrapAlignment.center,
             spacing: 60,
             runSpacing: 40,
-            children: [
-              _ImpactStat(
-                number: impact['volunteers']!,
-                label: 'Volunteers',
-                delay: 200.ms,
-              ),
-              _ImpactStat(
-                number: impact['countries']!,
-                label: 'Countries',
-                delay: 400.ms,
-              ),
-              _ImpactStat(
-                number: impact['livesAffected']!,
-                label: 'Lives Affected',
-                delay: 600.ms,
-              ),
-            ],
+            children: impacts,
           ).animate().fadeIn(delay: 600.ms).scaleX(),
         ],
       ),
     );
   }
 
-  Widget _buildCTASection() {
+  Widget _buildCTASection(WidgetRef ref) {
+    final young = ref.watch(youngProvider);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 24),
       decoration: BoxDecoration(
@@ -398,7 +371,7 @@ class HomePage extends ConsumerWidget {
           ).animate().fadeIn().scale(begin: const Offset(0.9, 0.9)),
           const SizedBox(height: 24),
           Text(
-            'Join thousands of young leaders in transforming their communities.',
+            young,
             textAlign: TextAlign.center,
             style: GoogleFonts.inter(
               fontSize: 18,
@@ -426,14 +399,15 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  Widget _buildFooter(String title) {
+  Widget _buildFooter(WidgetRef ref, String title) {
+    final providerTitle = ref.watch(footerProvider(title));
     return Container(
       padding: const EdgeInsets.all(40),
       color: WebTheme.creamSurface,
       child: Column(
         children: [
           Text(
-            '© 2026 $title. All rights reserved.',
+            providerTitle,
             style: TextStyle(color: WebTheme.darkText.withValues(alpha: 0.5)),
           ),
           const SizedBox(height: 10),
@@ -564,12 +538,13 @@ class VisionCard extends StatelessWidget {
   }
 }
 
-class _ImpactStat extends StatelessWidget {
+class ImpactStat extends StatelessWidget {
   final String number;
   final String label;
   final Duration delay;
 
-  const _ImpactStat({
+  const ImpactStat({
+    super.key,
     required this.number,
     required this.label,
     this.delay = Duration.zero,
