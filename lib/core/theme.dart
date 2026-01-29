@@ -7,6 +7,10 @@ class WebTheme {
   static const Color darkText = Color(0xFF2D2926);
   static const Color accentGold = Color(0xFFD4AF37);
 
+  static const Duration animationDuration = Duration(milliseconds: 1500);
+  static const Curve animationCurve = Curves.easeOutExpo;
+  static const double animationSlide = 0.3;
+
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
