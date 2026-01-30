@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:yesat/features/about/about_providers.dart';
+import 'package:yesat/core/widgets.dart';
 import '../../core/router.dart';
 import '../../core/theme.dart';
 import '../../main.dart';
@@ -24,12 +25,41 @@ class AboutPage extends ConsumerWidget {
               slivers: [
                 _buildAppBar(context, ref, isMobile),
                 SliverToBoxAdapter(child: _buildHeaderSection(ref)),
-                SliverToBoxAdapter(child: _buildStorySection(ref)),
-                SliverToBoxAdapter(child: _buildVisionMissionSection(ref)),
-                SliverToBoxAdapter(child: _buildCoreValuesSection(ref)),
-                SliverToBoxAdapter(child: _buildTeamSection(ref)),
-                SliverToBoxAdapter(child: _buildTransparencySection()),
-                SliverToBoxAdapter(child: _buildFooter()),
+                SliverToBoxAdapter(
+                  child: ScrollReveal(
+                    builder: (context, isVisible) =>
+                        _buildStorySection(ref, isVisible),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: ScrollReveal(
+                    builder: (context, isVisible) =>
+                        _buildVisionMissionSection(ref, isVisible),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: ScrollReveal(
+                    builder: (context, isVisible) =>
+                        _buildCoreValuesSection(ref, isVisible),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: ScrollReveal(
+                    builder: (context, isVisible) =>
+                        _buildTeamSection(ref, isVisible),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: ScrollReveal(
+                    builder: (context, isVisible) =>
+                        _buildTransparencySection(isVisible),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: ScrollReveal(
+                    builder: (context, isVisible) => _buildFooter(isVisible),
+                  ),
+                ),
               ],
             ),
           ),
@@ -129,37 +159,50 @@ class AboutPage extends ConsumerWidget {
       child: Column(
         children: [
           Text(
-            company,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.libreBaskerville(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              color: WebTheme.darkText,
-            ),
-          ).animate().fadeIn(duration: 1200.ms).slideY(begin: 0.2),
+                company,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.libreBaskerville(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: WebTheme.darkText,
+                ),
+              )
+              .animate()
+              .fadeIn(duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
+              ),
           const SizedBox(height: 24),
           Text(
-            vibrant,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.inter(
-              fontSize: 18,
-              letterSpacing: 4,
-              fontWeight: FontWeight.w300,
-              color: WebTheme.accentGold,
-            ),
-          ).animate().fadeIn(delay: 400.ms),
+                vibrant,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                  fontSize: 18,
+                  letterSpacing: 4,
+                  fontWeight: FontWeight.w300,
+                  color: WebTheme.accentGold,
+                ),
+              )
+              .animate()
+              .fadeIn(delay: 400.ms, duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
+              ),
           const SizedBox(height: 24),
-          Container(
-            width: 80,
-            height: 4,
-            color: WebTheme.accentGold,
-          ).animate().fadeIn(delay: 600.ms).scaleX(),
+          Container(width: 80, height: 4, color: WebTheme.accentGold)
+              .animate()
+              .fadeIn(delay: 800.ms, duration: WebTheme.animationDuration)
+              .scaleX(curve: WebTheme.animationCurve),
         ],
       ),
     );
   }
 
-  Widget _buildStorySection(WidgetRef ref) {
+  Widget _buildStorySection(WidgetRef ref, bool isVisible) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = constraints.maxWidth < 900;
@@ -174,18 +217,18 @@ class AboutPage extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (!isMobile)
-                    Expanded(flex: 3, child: _buildStoryText(ref))
+                    Expanded(flex: 3, child: _buildStoryText(ref, isVisible))
                   else
-                    _buildStoryText(ref),
+                    _buildStoryText(ref, isVisible),
                   SizedBox(width: isMobile ? 0 : 80, height: isMobile ? 60 : 0),
                   if (!isMobile)
-                    Expanded(flex: 2, child: _buildStoryImage())
+                    Expanded(flex: 2, child: _buildStoryImage(isVisible))
                   else
-                    _buildStoryImage(),
+                    _buildStoryImage(isVisible),
                 ],
               ),
               const SizedBox(height: 60),
-              _buildDetailedBackground(ref),
+              _buildDetailedBackground(ref, isVisible),
             ],
           ),
         );
@@ -193,80 +236,85 @@ class AboutPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildStoryText(WidgetRef ref) {
+  Widget _buildStoryText(WidgetRef ref, bool isVisible) {
     final background = ref.watch(vibrantProvider);
     final history = ref.watch(historyProvider);
     final organization = ref.watch(organizationProvider);
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          background,
-          style: GoogleFonts.libreBaskerville(
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 32),
-        Text(
-          history,
-          style: GoogleFonts.inter(
-            fontSize: 18,
-            height: 1.6,
-            color: WebTheme.darkText.withValues(alpha: 0.8),
-          ),
-        ),
-        const SizedBox(height: 24),
-        Text(
-          organization,
-          style: GoogleFonts.inter(
-            fontSize: 18,
-            height: 1.6,
-            color: WebTheme.darkText.withValues(alpha: 0.8),
-          ),
-        ),
-      ],
-    ).animate().fadeIn(duration: 1200.ms).slideX(begin: -0.1);
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              background,
+              style: GoogleFonts.libreBaskerville(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 32),
+            Text(
+              history,
+              style: GoogleFonts.inter(
+                fontSize: 18,
+                height: 1.6,
+                color: WebTheme.darkText.withValues(alpha: 0.8),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              organization,
+              style: GoogleFonts.inter(
+                fontSize: 18,
+                height: 1.6,
+                color: WebTheme.darkText.withValues(alpha: 0.8),
+              ),
+            ),
+          ],
+        )
+        .animate(target: isVisible ? 1 : 0)
+        .fadeIn(duration: WebTheme.animationDuration)
+        .slideX(begin: -0.1, end: 0, curve: WebTheme.animationCurve);
   }
 
-  Widget _buildDetailedBackground(WidgetRef ref) {
+  Widget _buildDetailedBackground(WidgetRef ref, bool isVisible) {
     final detail = ref.watch(detailProvider);
     final mission = ref.watch(missionProvider);
     final mission2 = ref.watch(missionProvider2);
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          detail,
-          style: GoogleFonts.inter(
-            fontSize: 18,
-            height: 1.6,
-            color: WebTheme.darkText.withValues(alpha: 0.8),
-          ),
-        ),
-        const SizedBox(height: 24),
-        Text(
-          mission,
-          style: GoogleFonts.inter(
-            fontSize: 18,
-            height: 1.6,
-            color: WebTheme.darkText.withValues(alpha: 0.8),
-          ),
-        ),
-        const SizedBox(height: 24),
-        Text(
-          mission2,
-          style: GoogleFonts.inter(
-            fontSize: 18,
-            height: 1.6,
-            color: WebTheme.darkText.withValues(alpha: 0.8),
-          ),
-        ),
-      ],
-    ).animate().fadeIn(delay: 400.ms);
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              detail,
+              style: GoogleFonts.inter(
+                fontSize: 18,
+                height: 1.6,
+                color: WebTheme.darkText.withValues(alpha: 0.8),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              mission,
+              style: GoogleFonts.inter(
+                fontSize: 18,
+                height: 1.6,
+                color: WebTheme.darkText.withValues(alpha: 0.8),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              mission2,
+              style: GoogleFonts.inter(
+                fontSize: 18,
+                height: 1.6,
+                color: WebTheme.darkText.withValues(alpha: 0.8),
+              ),
+            ),
+          ],
+        )
+        .animate(target: isVisible ? 1 : 0)
+        .fadeIn(delay: 400.ms, duration: WebTheme.animationDuration);
   }
 
-  Widget _buildVisionMissionSection(WidgetRef ref) {
+  Widget _buildVisionMissionSection(WidgetRef ref, bool isVisible) {
     final vision = ref.watch(visionProvider);
     final mission = ref.watch(missionVProvider);
     return Container(
@@ -286,6 +334,7 @@ class AboutPage extends ConsumerWidget {
                       title: 'Vision',
                       content: vision,
                       icon: Icons.lightbulb_outline,
+                      isVisible: isVisible,
                     ),
                   ),
                   const SizedBox(width: 40, height: 40),
@@ -295,6 +344,7 @@ class AboutPage extends ConsumerWidget {
                       title: 'Mission',
                       content: mission,
                       icon: Icons.rocket_launch_outlined,
+                      isVisible: isVisible,
                     ),
                   ),
                 ],
@@ -310,47 +360,55 @@ class AboutPage extends ConsumerWidget {
     required String title,
     required String content,
     required IconData icon,
+    required bool isVisible,
   }) {
     return Container(
-      padding: const EdgeInsets.all(40),
-      decoration: BoxDecoration(
-        color: WebTheme.creamBackground,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
+          padding: const EdgeInsets.all(40),
+          decoration: BoxDecoration(
+            color: WebTheme.creamBackground,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, color: WebTheme.accentGold, size: 40),
-          const SizedBox(height: 24),
-          Text(
-            title,
-            style: GoogleFonts.libreBaskerville(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(icon, color: WebTheme.accentGold, size: 40),
+              const SizedBox(height: 24),
+              Text(
+                title,
+                style: GoogleFonts.libreBaskerville(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                content,
+                style: GoogleFonts.inter(
+                  fontSize: 17,
+                  height: 1.6,
+                  color: WebTheme.darkText.withValues(alpha: 0.8),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 16),
-          Text(
-            content,
-            style: GoogleFonts.inter(
-              fontSize: 17,
-              height: 1.6,
-              color: WebTheme.darkText.withValues(alpha: 0.8),
-            ),
-          ),
-        ],
-      ),
-    ).animate().fadeIn(duration: 800.ms).slideY(begin: 0.1);
+        )
+        .animate(target: isVisible ? 1 : 0)
+        .fadeIn(duration: WebTheme.animationDuration)
+        .slideY(
+          begin: WebTheme.animationSlide,
+          end: 0,
+          curve: WebTheme.animationCurve,
+        );
   }
 
-  Widget _buildCoreValuesSection(WidgetRef ref) {
+  Widget _buildCoreValuesSection(WidgetRef ref, bool isVisible) {
     final values = ref.watch(valuesProvider);
     final title = ref.watch(coreTitleProvider);
 
@@ -359,55 +417,72 @@ class AboutPage extends ConsumerWidget {
       child: Column(
         children: [
           Text(
-            title,
-            style: GoogleFonts.libreBaskerville(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+                title,
+                style: GoogleFonts.libreBaskerville(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
+              ),
           const SizedBox(height: 60),
           Wrap(
-            spacing: 30,
-            runSpacing: 30,
-            alignment: WrapAlignment.center,
-            children: values
-                .map(
-                  (v) => _CoreValueCard(
-                    title: v['title'] as String,
-                    icon: v['icon'] as IconData,
-                  ),
-                )
-                .toList(),
-          ),
+                spacing: 30,
+                runSpacing: 30,
+                alignment: WrapAlignment.center,
+                children: values
+                    .map(
+                      (v) => _CoreValueCard(
+                        title: v['title'] as String,
+                        icon: v['icon'] as IconData,
+                      ),
+                    )
+                    .toList(),
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(delay: 400.ms, duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
+              ),
         ],
       ),
     );
   }
 
-  Widget _buildStoryImage() {
+  Widget _buildStoryImage(bool isVisible) {
     return Container(
-      height: 400,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: WebTheme.creamSurface,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
+          height: 400,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: WebTheme.creamSurface,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: const Icon(
-        Icons.history_edu,
-        size: 100,
-        color: WebTheme.accentGold,
-      ),
-    ).animate().fadeIn(duration: 1200.ms).scale();
+          child: const Icon(
+            Icons.history_edu,
+            size: 100,
+            color: WebTheme.accentGold,
+          ),
+        )
+        .animate(target: isVisible ? 1 : 0)
+        .fadeIn(duration: WebTheme.animationDuration)
+        .scale(curve: WebTheme.animationCurve);
   }
 
-  Widget _buildTeamSection(WidgetRef ref) {
+  Widget _buildTeamSection(WidgetRef ref, bool isVisible) {
     final youth = ref.watch(youthProvider);
     final leaders = ref.watch(teamProvider);
     return Container(
@@ -416,92 +491,117 @@ class AboutPage extends ConsumerWidget {
       child: Column(
         children: [
           Text(
-            youth,
-            style: GoogleFonts.libreBaskerville(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+                youth,
+                style: GoogleFonts.libreBaskerville(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
+              ),
           const SizedBox(height: 60),
           Wrap(
-            spacing: 40,
-            runSpacing: 40,
-            alignment: WrapAlignment.center,
-            children: leaders,
-          ),
+                spacing: 40,
+                runSpacing: 40,
+                alignment: WrapAlignment.center,
+                children: leaders,
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(delay: 400.ms, duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
+              ),
         ],
       ),
     );
   }
 
-  Widget _buildTransparencySection() {
+  Widget _buildTransparencySection(bool isVisible) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = constraints.maxWidth < 600;
 
         return Container(
-          padding: EdgeInsets.symmetric(
-            vertical: isMobile ? 60 : 100,
-            horizontal: isMobile ? 20 : 40,
-          ),
-          child: Card(
-            color: WebTheme.darkText,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(isMobile ? 30.0 : 60.0),
-              child: Column(
-                children: [
-                  Text(
-                    'Transparency & Governance',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.libreBaskerville(
-                      fontSize: isMobile ? 24 : 32,
-                      fontWeight: FontWeight.bold,
-                      color: WebTheme.creamBackground,
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Text(
-                    'We hold ourselves to the highest standards of accountability. Funders can access our annual reports and independent audits at any time.',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.inter(
-                      fontSize: isMobile ? 16 : 18,
-                      color: WebTheme.creamBackground.withValues(alpha: 0.8),
-                    ),
-                  ),
-                  const SizedBox(height: 48),
-                  Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: 20,
-                    runSpacing: 20,
+              padding: EdgeInsets.symmetric(
+                vertical: isMobile ? 60 : 100,
+                horizontal: isMobile ? 20 : 40,
+              ),
+              child: Card(
+                color: WebTheme.darkText,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(isMobile ? 30.0 : 60.0),
+                  child: Column(
                     children: [
-                      _TransparencyButton(label: '2025 Annual Report'),
-                      _TransparencyButton(label: 'Board Structure'),
-                      _TransparencyButton(label: 'Financial Audits'),
+                      Text(
+                        'Transparency & Governance',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.libreBaskerville(
+                          fontSize: isMobile ? 24 : 32,
+                          fontWeight: FontWeight.bold,
+                          color: WebTheme.creamBackground,
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      Text(
+                        'We hold ourselves to the highest standards of accountability. Funders can access our annual reports and independent audits at any time.',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.inter(
+                          fontSize: isMobile ? 16 : 18,
+                          color: WebTheme.creamBackground.withValues(
+                            alpha: 0.8,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 48),
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 20,
+                        runSpacing: 20,
+                        children: [
+                          _TransparencyButton(label: '2025 Annual Report'),
+                          _TransparencyButton(label: 'Board Structure'),
+                          _TransparencyButton(label: 'Financial Audits'),
+                        ],
+                      ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
-        ).animate().fadeIn(duration: 1200.ms).slideY(begin: 0.2);
+            )
+            .animate(target: isVisible ? 1 : 0)
+            .fadeIn(duration: WebTheme.animationDuration)
+            .slideY(
+              begin: WebTheme.animationSlide,
+              end: 0,
+              curve: WebTheme.animationCurve,
+            );
       },
     );
   }
 
-  Widget _buildFooter() {
+  Widget _buildFooter(bool isVisible) {
     return Container(
-      padding: const EdgeInsets.all(40),
-      color: WebTheme.creamSurface,
-      child: Center(
-        child: Text(
-          '© 2026 YESAT Initiative Uganda Ltd. Empowering the youth today.',
-          style: TextStyle(color: WebTheme.darkText.withValues(alpha: 0.5)),
-        ),
-      ),
-    );
+          padding: const EdgeInsets.all(40),
+          color: WebTheme.creamSurface,
+          child: Center(
+            child: Text(
+              '© 2026 YESAT Initiative Uganda Ltd. Empowering the youth today.',
+              style: TextStyle(color: WebTheme.darkText.withValues(alpha: 0.5)),
+            ),
+          ),
+        )
+        .animate(target: isVisible ? 1 : 0)
+        .fadeIn(duration: WebTheme.animationDuration);
   }
 }
 
@@ -704,7 +804,7 @@ class TeamMemberCard extends StatelessWidget {
           ],
         ),
       ),
-    ).animate().fadeIn(duration: 1000.ms).slideY(begin: 0.1);
+    );
   }
 }
 
@@ -780,7 +880,7 @@ class _CoreValueCard extends StatelessWidget {
           ),
         ],
       ),
-    ).animate().fadeIn().scale(delay: 200.ms);
+    );
   }
 }
 

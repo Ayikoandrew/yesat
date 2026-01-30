@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:yesat/core/widgets.dart';
 import '../../core/theme.dart';
 import '../../core/router.dart';
 import '../../main.dart';
@@ -27,10 +28,30 @@ class HomePage extends ConsumerWidget {
               slivers: [
                 _buildAppBar(ref, ngoName, isMobile),
                 SliverToBoxAdapter(child: _buildHeroSection(ref)),
-                SliverToBoxAdapter(child: _buildVisionSection(ref)),
-                SliverToBoxAdapter(child: _buildImpactSection(ref, impact)),
-                SliverToBoxAdapter(child: _buildCTASection(ref)),
-                SliverToBoxAdapter(child: _buildFooter(ref, ngoName)),
+                SliverToBoxAdapter(
+                  child: ScrollReveal(
+                    builder: (context, isVisible) =>
+                        _buildVisionSection(ref, isVisible),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: ScrollReveal(
+                    builder: (context, isVisible) =>
+                        _buildImpactSection(ref, impact, isVisible),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: ScrollReveal(
+                    builder: (context, isVisible) =>
+                        _buildCTASection(ref, isVisible),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: ScrollReveal(
+                    builder: (context, isVisible) =>
+                        _buildFooter(ref, ngoName, isVisible),
+                  ),
+                ),
               ],
             ),
           ),
@@ -206,11 +227,11 @@ class HomePage extends ConsumerWidget {
                             ),
                           )
                           .animate()
-                          .fadeIn(duration: 1500.ms)
+                          .fadeIn(duration: WebTheme.animationDuration)
                           .slideY(
-                            begin: 0.3,
+                            begin: WebTheme.animationSlide,
                             end: 0,
-                            curve: Curves.easeOutExpo,
+                            curve: WebTheme.animationCurve,
                           ),
                       const SizedBox(height: 24),
                       Text(
@@ -222,11 +243,14 @@ class HomePage extends ConsumerWidget {
                             ),
                           )
                           .animate()
-                          .fadeIn(delay: 800.ms, duration: 1500.ms)
+                          .fadeIn(
+                            delay: 400.ms,
+                            duration: WebTheme.animationDuration,
+                          )
                           .slideY(
-                            begin: 0.3,
+                            begin: WebTheme.animationSlide,
                             end: 0,
-                            curve: Curves.easeOutExpo,
+                            curve: WebTheme.animationCurve,
                           ),
                       const SizedBox(height: 48),
                       Wrap(
@@ -266,10 +290,14 @@ class HomePage extends ConsumerWidget {
                             ],
                           )
                           .animate()
-                          .fadeIn(delay: 1600.ms, duration: 1500.ms)
-                          .scale(
-                            begin: const Offset(0.9, 0.9),
-                            curve: Curves.easeOutBack,
+                          .fadeIn(
+                            delay: 800.ms,
+                            duration: WebTheme.animationDuration,
+                          )
+                          .slideY(
+                            begin: WebTheme.animationSlide,
+                            end: 0,
+                            curve: WebTheme.animationCurve,
                           ),
                     ],
                   ),
@@ -282,77 +310,118 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  Widget _buildVisionSection(WidgetRef ref) {
+  Widget _buildVisionSection(WidgetRef ref, bool isVisible) {
     final vision = ref.watch(visionProvider);
-    final visions = ref.watch(visionCardProvider);
+    final visionDataList = ref.watch(visionCardProvider);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
       color: Colors.white.withValues(alpha: 0.3),
       child: Column(
         children: [
           Text(
-            'Our Vision',
-            style: GoogleFonts.libreBaskerville(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-            ),
-          ).animate().fadeIn(duration: 1200.ms).slideY(begin: 0.5),
+                'Our Vision',
+                style: GoogleFonts.libreBaskerville(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
+              ),
           const SizedBox(height: 24),
           ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 800),
-            child: Text(
-              vision,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.inter(
-                fontSize: 18,
-                height: 1.6,
-                color: WebTheme.darkText.withValues(alpha: 0.7),
+                constraints: const BoxConstraints(maxWidth: 800),
+                child: Text(
+                  vision,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.inter(
+                    fontSize: 18,
+                    height: 1.6,
+                    color: WebTheme.darkText.withValues(alpha: 0.7),
+                  ),
+                ),
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(delay: 400.ms, duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
               ),
-            ),
-          ).animate().fadeIn(delay: 400.ms),
           const SizedBox(height: 60),
           Wrap(
-                spacing: 30,
-                runSpacing: 30,
-                alignment: WrapAlignment.center,
-                children: visions,
-              )
-              .animate()
-              .fadeIn(duration: 1500.ms)
-              .slideY(begin: 0.3, end: 0, curve: Curves.easeOutExpo),
+            spacing: 30,
+            runSpacing: 30,
+            alignment: WrapAlignment.center,
+            children: visionDataList
+                .map(
+                  (data) => VisionCard(
+                    icon: data.icon,
+                    title: data.title,
+                    description: data.description,
+                    delay: data.delay,
+                    isVisible: isVisible,
+                  ),
+                )
+                .toList(),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildImpactSection(WidgetRef ref, Map<String, String> impact) {
-    final impacts = ref.watch(impactStatProvider(impact));
+  Widget _buildImpactSection(
+    WidgetRef ref,
+    Map<String, String> impact,
+    bool isVisible,
+  ) {
+    final impactDataList = ref.watch(impactStatProvider(impact));
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80),
       color: WebTheme.darkText,
       child: Column(
         children: [
           Text(
-            'Our Global Impact',
-            style: GoogleFonts.libreBaskerville(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              color: WebTheme.creamBackground,
-            ),
-          ).animate().fadeIn(duration: 1200.ms),
+                'Our Global Impact',
+                style: GoogleFonts.libreBaskerville(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: WebTheme.creamBackground,
+                ),
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
+              ),
           const SizedBox(height: 40),
           Wrap(
             alignment: WrapAlignment.center,
             spacing: 60,
             runSpacing: 40,
-            children: impacts,
-          ).animate().fadeIn(delay: 600.ms).scaleX(),
+            children: impactDataList
+                .map(
+                  (data) => ImpactStat(
+                    number: data.number,
+                    label: data.label,
+                    delay: data.delay,
+                    isVisible: isVisible,
+                  ),
+                )
+                .toList(),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildCTASection(WidgetRef ref) {
+  Widget _buildCTASection(WidgetRef ref, bool isVisible) {
     final young = ref.watch(youngProvider);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 24),
@@ -362,68 +431,97 @@ class HomePage extends ConsumerWidget {
       child: Column(
         children: [
           Text(
-            'Ready to make a difference?',
-            style: GoogleFonts.libreBaskerville(
-              fontSize: 36,
-              fontWeight: FontWeight.bold,
-              color: WebTheme.darkText,
-            ),
-          ).animate().fadeIn().scale(begin: const Offset(0.9, 0.9)),
+                'Ready to make a difference?',
+                style: GoogleFonts.libreBaskerville(
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold,
+                  color: WebTheme.darkText,
+                ),
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
+              ),
           const SizedBox(height: 24),
           Text(
-            young,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.inter(
-              fontSize: 18,
-              color: WebTheme.darkText.withValues(alpha: 0.7),
-            ),
-          ),
+                young,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                  fontSize: 18,
+                  color: WebTheme.darkText.withValues(alpha: 0.7),
+                ),
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(delay: 400.ms, duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
+              ),
           const SizedBox(height: 48),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 40,
-                    vertical: 24,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 40,
+                        vertical: 24,
+                      ),
+                    ),
+                    child: const Text('Get Involved Today'),
                   ),
-                ),
-                child: const Text('Get Involved Today'),
+                ],
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(delay: 800.ms, duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
               ),
-            ],
-          ),
         ],
       ),
     );
   }
 
-  Widget _buildFooter(WidgetRef ref, String title) {
+  Widget _buildFooter(WidgetRef ref, String title, bool isVisible) {
     final providerTitle = ref.watch(footerProvider(title));
     return Container(
-      padding: const EdgeInsets.all(40),
-      color: WebTheme.creamSurface,
-      child: Column(
-        children: [
-          Text(
-            providerTitle,
-            style: TextStyle(color: WebTheme.darkText.withValues(alpha: 0.5)),
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          padding: const EdgeInsets.all(40),
+          color: WebTheme.creamSurface,
+          child: Column(
             children: [
-              TextButton(onPressed: () {}, child: const Text('Privacy Policy')),
-              TextButton(
-                onPressed: () {},
-                child: const Text('Terms of Service'),
+              Text(
+                providerTitle,
+                style: TextStyle(
+                  color: WebTheme.darkText.withValues(alpha: 0.5),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('Privacy Policy'),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('Terms of Service'),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
-      ),
-    );
+        )
+        .animate(target: isVisible ? 1 : 0)
+        .fadeIn(duration: WebTheme.animationDuration)
+        .slideY(begin: 0.1, end: 0, curve: WebTheme.animationCurve);
   }
 }
 
@@ -485,6 +583,7 @@ class VisionCard extends StatelessWidget {
   final String title;
   final String description;
   final Duration delay;
+  final bool isVisible;
 
   const VisionCard({
     super.key,
@@ -492,6 +591,7 @@ class VisionCard extends StatelessWidget {
     required this.title,
     required this.description,
     this.delay = Duration.zero,
+    this.isVisible = true,
   });
 
   @override
@@ -532,9 +632,13 @@ class VisionCard extends StatelessWidget {
             ],
           ),
         )
-        .animate()
-        .fadeIn(delay: delay, duration: 1200.ms)
-        .slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad);
+        .animate(target: isVisible ? 1 : 0)
+        .fadeIn(delay: delay, duration: WebTheme.animationDuration)
+        .slideY(
+          begin: WebTheme.animationSlide,
+          end: 0,
+          curve: WebTheme.animationCurve,
+        );
   }
 }
 
@@ -542,12 +646,14 @@ class ImpactStat extends StatelessWidget {
   final String number;
   final String label;
   final Duration delay;
+  final bool isVisible;
 
   const ImpactStat({
     super.key,
     required this.number,
     required this.label,
     this.delay = Duration.zero,
+    this.isVisible = true,
   });
 
   @override
@@ -573,9 +679,13 @@ class ImpactStat extends StatelessWidget {
             ),
           ],
         )
-        .animate()
-        .fadeIn(delay: delay, duration: 1500.ms)
-        .slideY(begin: 0.2, end: 0, curve: Curves.easeOutExpo);
+        .animate(target: isVisible ? 1 : 0)
+        .fadeIn(delay: delay, duration: WebTheme.animationDuration)
+        .slideY(
+          begin: WebTheme.animationSlide,
+          end: 0,
+          curve: WebTheme.animationCurve,
+        );
   }
 }
 

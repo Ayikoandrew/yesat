@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'home_page.dart';
-
 final ngoNameProvider = Provider<String>((ref) {
   return 'YESAT Initiative Uganda Ltd';
 });
@@ -23,20 +21,27 @@ final ngoImpactCounterProvider = Provider<Map<String, String>>((ref) {
   return {'volunteers': '00', 'countries': '1', 'livesAffected': '0'};
 });
 
+class ImpactData {
+  final String number;
+  final String label;
+  final Duration delay;
+  ImpactData({required this.number, required this.label, required this.delay});
+}
+
 final impactStatProvider =
-    Provider.family<List<ImpactStat>, Map<String, String>>((ref, impact) {
+    Provider.family<List<ImpactData>, Map<String, String>>((ref, impact) {
       return [
-        ImpactStat(
+        ImpactData(
           number: impact['volunteers']!,
           label: 'Volunteers',
           delay: const Duration(milliseconds: 200),
         ),
-        ImpactStat(
+        ImpactData(
           number: impact['countries']!,
           label: 'Countries',
           delay: const Duration(milliseconds: 400),
         ),
-        ImpactStat(
+        ImpactData(
           number: impact['livesAffected']!,
           label: 'Lives Affected',
           delay: const Duration(milliseconds: 600),
@@ -48,21 +53,34 @@ final visionProvider = Provider<String>((ref) {
   return 'A vibrant, self-reliant, and empowered youth-led community where young people actively contribute to sustainable development.';
 });
 
-final visionCardProvider = Provider<List<VisionCard>>((ref) {
+class VisionData {
+  final IconData icon;
+  final String title;
+  final String description;
+  final Duration delay;
+  VisionData({
+    required this.icon,
+    required this.title,
+    required this.description,
+    required this.delay,
+  });
+}
+
+final visionCardProvider = Provider<List<VisionData>>((ref) {
   return [
-    VisionCard(
+    VisionData(
       icon: Icons.lightbulb,
       title: 'Empowerment',
       description: 'Equipping youth with skills, knowledge, and opportunities.',
       delay: const Duration(milliseconds: 200),
     ),
-    VisionCard(
+    VisionData(
       icon: Icons.eco,
       title: 'Sustainability',
       description: 'Action for long-term social and economic transformation.',
       delay: const Duration(milliseconds: 400),
     ),
-    VisionCard(
+    VisionData(
       icon: Icons.volunteer_activism,
       title: 'Self-Reliance',
       description:
