@@ -64,11 +64,11 @@ class HomePage extends ConsumerWidget {
     return SliverAppBar(
       floating: true,
       pinned: true,
-      backgroundColor: WebTheme.creamSurface.withValues(alpha: 0.9),
+      backgroundColor: Colors.white.withValues(alpha: 0.9),
       leading: isMobile
           ? Builder(
               builder: (context) => IconButton(
-                icon: const Icon(Icons.menu),
+                icon: const Icon(Icons.menu, color: WebTheme.primary),
                 onPressed: () => Scaffold.of(context).openDrawer(),
               ),
             )
@@ -78,7 +78,7 @@ class HomePage extends ConsumerWidget {
         style: GoogleFonts.libreBaskerville(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: WebTheme.darkText,
+          color: WebTheme.primary,
         ),
       ),
       automaticallyImplyLeading: false,
@@ -116,19 +116,19 @@ class HomePage extends ConsumerWidget {
 
   Widget _buildDrawer(WidgetRef ref) {
     return Drawer(
-      backgroundColor: WebTheme.creamBackground,
+      backgroundColor: Colors.white,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: const BoxDecoration(color: WebTheme.creamSurface),
+            decoration: const BoxDecoration(color: WebTheme.primary),
             child: Center(
               child: Text(
                 'YESAT',
                 style: GoogleFonts.libreBaskerville(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  color: WebTheme.darkText,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -157,6 +157,10 @@ class HomePage extends ConsumerWidget {
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
               onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: WebTheme.accentGold,
+                foregroundColor: Colors.white,
+              ),
               child: const Text('Donate Now'),
             ),
           ),
@@ -187,7 +191,7 @@ class HomePage extends ConsumerWidget {
         return Container(
           height: 600,
           width: double.infinity,
-          color: WebTheme.creamBackground,
+          color: WebTheme.primary,
           child: Stack(
             children: [
               Positioned.fill(
@@ -201,10 +205,10 @@ class HomePage extends ConsumerWidget {
                     fit: BoxFit.cover,
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) return child;
-                      return Container(color: WebTheme.creamBackground);
+                      return Container(color: WebTheme.primary);
                     },
                     errorBuilder: (context, error, stackTrace) {
-                      return Container(color: WebTheme.creamBackground);
+                      return Container(color: WebTheme.primary);
                     },
                   ),
                 ),
@@ -223,7 +227,7 @@ class HomePage extends ConsumerWidget {
                               fontSize: headlineFontSize,
                               height: 1.1,
                               fontWeight: FontWeight.bold,
-                              color: WebTheme.darkText,
+                              color: Colors.white,
                             ),
                           )
                           .animate()
@@ -239,7 +243,7 @@ class HomePage extends ConsumerWidget {
                             textAlign: TextAlign.center,
                             style: GoogleFonts.inter(
                               fontSize: subtitleFontSize,
-                              color: WebTheme.darkText.withValues(alpha: 0.7),
+                              color: Colors.white.withValues(alpha: 0.9),
                             ),
                           )
                           .animate()
@@ -263,6 +267,8 @@ class HomePage extends ConsumerWidget {
                                     .read(coordinatorProvider)
                                     .push(ImpactRoute()),
                                 style: ElevatedButton.styleFrom(
+                                  backgroundColor: WebTheme.accentGold,
+                                  foregroundColor: Colors.white,
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 40,
                                     vertical: 20,
@@ -273,7 +279,10 @@ class HomePage extends ConsumerWidget {
                               OutlinedButton(
                                 onPressed: () {},
                                 style: OutlinedButton.styleFrom(
-                                  side: BorderSide(color: WebTheme.darkText),
+                                  side: const BorderSide(
+                                    color: Colors.white,
+                                    width: 2,
+                                  ),
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 40,
                                     vertical: 20,
@@ -282,9 +291,12 @@ class HomePage extends ConsumerWidget {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                 ),
-                                child: Text(
+                                child: const Text(
                                   'Join Us',
-                                  style: TextStyle(color: WebTheme.darkText),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ],
@@ -314,48 +326,59 @@ class HomePage extends ConsumerWidget {
     final vision = ref.watch(visionProvider);
     final visionDataList = ref.watch(visionCardProvider);
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
-      color: Colors.white.withValues(alpha: 0.3),
+      padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 40),
+      color: Colors.white,
       child: Column(
         children: [
-          Text(
-                'Our Vision',
-                style: GoogleFonts.libreBaskerville(
-                  fontSize: 32,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(width: 40, height: 2, color: WebTheme.secondary),
+              const SizedBox(width: 16),
+              Text(
+                'OUR VISION',
+                style: GoogleFonts.inter(
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
+                  letterSpacing: 2,
+                  color: WebTheme.secondary,
+                ),
+              ),
+              const SizedBox(width: 16),
+              Container(width: 40, height: 2, color: WebTheme.secondary),
+            ],
+          ).animate(target: isVisible ? 1 : 0).fadeIn(),
+          const SizedBox(height: 16),
+          Text(
+                'A Future of Empowered Youth',
+                style: GoogleFonts.libreBaskerville(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: WebTheme.primaryDark,
                 ),
               )
               .animate(target: isVisible ? 1 : 0)
               .fadeIn(duration: WebTheme.animationDuration)
-              .slideY(
-                begin: WebTheme.animationSlide,
-                end: 0,
-                curve: WebTheme.animationCurve,
-              ),
-          const SizedBox(height: 24),
+              .slideY(begin: 0.1, end: 0, curve: WebTheme.animationCurve),
+          const SizedBox(height: 32),
           ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 800),
+                constraints: const BoxConstraints(maxWidth: 700),
                 child: Text(
                   vision,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                     fontSize: 18,
-                    height: 1.6,
+                    height: 1.8,
                     color: WebTheme.darkText.withValues(alpha: 0.7),
                   ),
                 ),
               )
               .animate(target: isVisible ? 1 : 0)
-              .fadeIn(delay: 400.ms, duration: WebTheme.animationDuration)
-              .slideY(
-                begin: WebTheme.animationSlide,
-                end: 0,
-                curve: WebTheme.animationCurve,
-              ),
-          const SizedBox(height: 60),
+              .fadeIn(delay: 400.ms, duration: WebTheme.animationDuration),
+          const SizedBox(height: 80),
           Wrap(
-            spacing: 30,
-            runSpacing: 30,
+            spacing: 40,
+            runSpacing: 40,
             alignment: WrapAlignment.center,
             children: visionDataList
                 .map(
@@ -381,30 +404,25 @@ class HomePage extends ConsumerWidget {
   ) {
     final impactDataList = ref.watch(impactStatProvider(impact));
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80),
-      color: WebTheme.darkText,
+      padding: const EdgeInsets.symmetric(vertical: 100),
+      color: WebTheme.primaryDark,
       child: Column(
         children: [
           Text(
-                'Our Global Impact',
+                'Real Action, Real Impact',
                 style: GoogleFonts.libreBaskerville(
-                  fontSize: 32,
+                  fontSize: 40,
                   fontWeight: FontWeight.bold,
-                  color: WebTheme.creamBackground,
+                  color: Colors.white,
                 ),
               )
               .animate(target: isVisible ? 1 : 0)
-              .fadeIn(duration: WebTheme.animationDuration)
-              .slideY(
-                begin: WebTheme.animationSlide,
-                end: 0,
-                curve: WebTheme.animationCurve,
-              ),
-          const SizedBox(height: 40),
+              .fadeIn(duration: WebTheme.animationDuration),
+          const SizedBox(height: 60),
           Wrap(
             alignment: WrapAlignment.center,
-            spacing: 60,
-            runSpacing: 40,
+            spacing: 80,
+            runSpacing: 50,
             children: impactDataList
                 .map(
                   (data) => ImpactStat(
@@ -424,105 +442,86 @@ class HomePage extends ConsumerWidget {
   Widget _buildCTASection(WidgetRef ref, bool isVisible) {
     final young = ref.watch(youngProvider);
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 24),
-      decoration: BoxDecoration(
-        color: WebTheme.accentGold.withValues(alpha: 0.1),
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 120, horizontal: 24),
+      color: WebTheme.primaryLight,
       child: Column(
         children: [
           Text(
-                'Ready to make a difference?',
+                'Ready to Transform Lives?',
                 style: GoogleFonts.libreBaskerville(
-                  fontSize: 36,
+                  fontSize: 42,
                   fontWeight: FontWeight.bold,
-                  color: WebTheme.darkText,
+                  color: WebTheme.primaryDark,
                 ),
               )
               .animate(target: isVisible ? 1 : 0)
-              .fadeIn(duration: WebTheme.animationDuration)
-              .slideY(
-                begin: WebTheme.animationSlide,
-                end: 0,
-                curve: WebTheme.animationCurve,
-              ),
+              .fadeIn(duration: WebTheme.animationDuration),
           const SizedBox(height: 24),
-          Text(
-                young,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.inter(
-                  fontSize: 18,
-                  color: WebTheme.darkText.withValues(alpha: 0.7),
+          ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 600),
+                child: Text(
+                  young,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.inter(
+                    fontSize: 20,
+                    height: 1.6,
+                    color: WebTheme.darkText.withValues(alpha: 0.8),
+                  ),
                 ),
               )
               .animate(target: isVisible ? 1 : 0)
-              .fadeIn(delay: 400.ms, duration: WebTheme.animationDuration)
-              .slideY(
-                begin: WebTheme.animationSlide,
-                end: 0,
-                curve: WebTheme.animationCurve,
-              ),
-          const SizedBox(height: 48),
-          Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 40,
-                        vertical: 24,
-                      ),
-                    ),
-                    child: const Text('Get Involved Today'),
+              .fadeIn(delay: 400.ms, duration: WebTheme.animationDuration),
+          const SizedBox(height: 60),
+          ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: WebTheme.accentGold,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 50,
+                    vertical: 24,
                   ),
-                ],
+                ),
+                child: const Text('Get Involved Today'),
               )
               .animate(target: isVisible ? 1 : 0)
               .fadeIn(delay: 800.ms, duration: WebTheme.animationDuration)
-              .slideY(
-                begin: WebTheme.animationSlide,
-                end: 0,
-                curve: WebTheme.animationCurve,
-              ),
+              .slideY(begin: 0.2, end: 0),
         ],
       ),
     );
   }
+}
 
-  Widget _buildFooter(WidgetRef ref, String title, bool isVisible) {
-    final providerTitle = ref.watch(footerProvider(title));
-    return Container(
-          padding: const EdgeInsets.all(40),
-          color: WebTheme.creamSurface,
-          child: Column(
-            children: [
-              Text(
-                providerTitle,
-                style: TextStyle(
-                  color: WebTheme.darkText.withValues(alpha: 0.5),
+Widget _buildFooter(WidgetRef ref, String title, bool isVisible) {
+  final providerTitle = ref.watch(footerProvider(title));
+  return Container(
+        padding: const EdgeInsets.all(40),
+        color: WebTheme.primary,
+        child: Column(
+          children: [
+            Text(providerTitle, style: const TextStyle(color: Colors.white)),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  style: TextButton.styleFrom(foregroundColor: Colors.white70),
+                  child: const Text('Privacy Policy'),
                 ),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text('Privacy Policy'),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text('Terms of Service'),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        )
-        .animate(target: isVisible ? 1 : 0)
-        .fadeIn(duration: WebTheme.animationDuration)
-        .slideY(begin: 0.1, end: 0, curve: WebTheme.animationCurve);
-  }
+                TextButton(
+                  onPressed: () {},
+                  style: TextButton.styleFrom(foregroundColor: Colors.white70),
+                  child: const Text('Terms of Service'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      )
+      .animate(target: isVisible ? 1 : 0)
+      .fadeIn(duration: WebTheme.animationDuration)
+      .slideY(begin: 0.1, end: 0, curve: WebTheme.animationCurve);
 }
 
 class _NavBarItem extends StatelessWidget {
@@ -544,7 +543,7 @@ class _NavBarItem extends StatelessWidget {
               title,
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
-                color: WebTheme.darkText,
+                color: WebTheme.primary,
               ),
             ),
           ),
@@ -567,7 +566,7 @@ class _DrawerItem extends StatelessWidget {
         title,
         style: const TextStyle(
           fontWeight: FontWeight.w600,
-          color: WebTheme.darkText,
+          color: WebTheme.primary,
         ),
       ),
       onTap: () {
@@ -597,35 +596,46 @@ class VisionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-          width: 300,
-          padding: const EdgeInsets.all(32),
+          width: 320,
+          padding: const EdgeInsets.all(40),
           decoration: BoxDecoration(
-            color: WebTheme.creamSurface,
-            borderRadius: BorderRadius.circular(16),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: WebTheme.grayBorder),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.05),
-                blurRadius: 10,
-                offset: const Offset(0, 5),
+                blurRadius: 30,
+                offset: const Offset(0, 10),
               ),
             ],
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(icon, size: 48, color: WebTheme.accentGold),
-              const SizedBox(height: 24),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: WebTheme.primaryLight,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(icon, size: 32, color: WebTheme.primary),
+              ),
+              const SizedBox(height: 32),
               Text(
                 title,
                 style: GoogleFonts.libreBaskerville(
-                  fontSize: 20,
+                  fontSize: 22,
                   fontWeight: FontWeight.bold,
+                  color: WebTheme.primaryDark,
                 ),
               ),
               const SizedBox(height: 16),
               Text(
                 description,
-                textAlign: TextAlign.center,
-                style: TextStyle(
+                style: GoogleFonts.inter(
+                  height: 1.6,
+                  fontSize: 15,
                   color: WebTheme.darkText.withValues(alpha: 0.7),
                 ),
               ),
@@ -665,7 +675,7 @@ class ImpactStat extends StatelessWidget {
               style: GoogleFonts.libreBaskerville(
                 fontSize: 48,
                 fontWeight: FontWeight.bold,
-                color: WebTheme.creamBackground,
+                color: Colors.white,
               ),
             ),
             const SizedBox(height: 8),
@@ -674,7 +684,7 @@ class ImpactStat extends StatelessWidget {
               style: GoogleFonts.inter(
                 letterSpacing: 1.5,
                 fontSize: 14,
-                color: WebTheme.creamBackground.withValues(alpha: 0.6),
+                color: Colors.white.withValues(alpha: 0.7),
               ),
             ),
           ],

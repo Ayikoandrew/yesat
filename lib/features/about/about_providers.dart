@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'about_page.dart';
-
 final companyProvider = Provider<String>((ref) {
   return 'Youth Empowerment through Sustainable Action for Transformation (YESAT) Initiative Uganda Ltd';
 });
@@ -62,9 +60,25 @@ final youthProvider = Provider<String>((ref) {
   return 'Meet Our Youth Leaders';
 });
 
-final teamProvider = Provider<List<TeamMemberCard>>((ref) {
+class TeamMemberData {
+  final String name;
+  final String role;
+  final String profile;
+  final String strengths;
+  final String quote;
+
+  TeamMemberData({
+    required this.name,
+    required this.role,
+    required this.profile,
+    required this.strengths,
+    required this.quote,
+  });
+}
+
+final teamProvider = Provider<List<TeamMemberData>>((ref) {
   return [
-    TeamMemberCard(
+    TeamMemberData(
       name: 'Jude Augustine Drasiku',
       role: 'Founder',
       profile:
@@ -72,7 +86,7 @@ final teamProvider = Provider<List<TeamMemberCard>>((ref) {
       strengths: 'Strategic thinking | Leadership | Proactive action',
       quote: 'Young people are the catalyst for future change.',
     ),
-    TeamMemberCard(
+    TeamMemberData(
       name: 'Ayiko Andrew',
       role: 'Head of Skilling',
       profile:
@@ -80,7 +94,7 @@ final teamProvider = Provider<List<TeamMemberCard>>((ref) {
       strengths: 'Software Engineering | Systems Design | Technical Education',
       quote: 'Digital proficiency is the modern tool for liberation.',
     ),
-    TeamMemberCard(
+    TeamMemberData(
       name: 'Apangu Philliam',
       role: 'Community Lead',
       profile:
@@ -89,7 +103,7 @@ final teamProvider = Provider<List<TeamMemberCard>>((ref) {
           'Sustainable Agriculture | Environmental Restoration | Grassroots Engagement',
       quote: 'Ecological balance is the foundation of economic empowerment.',
     ),
-    TeamMemberCard(
+    TeamMemberData(
       name: 'Indricia Cynthia Onama',
       role: 'Legal Advisor',
       profile:
@@ -97,7 +111,7 @@ final teamProvider = Provider<List<TeamMemberCard>>((ref) {
       strengths: 'Resilience | Multitasking | Empathy ',
       quote: 'Cowards don’t make history.',
     ),
-    TeamMemberCard(
+    TeamMemberData(
       name: 'Lenia Christine',
       role: 'Member',
       profile:

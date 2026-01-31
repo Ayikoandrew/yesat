@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:yesat/core/widgets.dart';
 import '../../core/theme.dart';
 import '../../core/router.dart';
 import '../../main.dart';
@@ -16,7 +17,7 @@ class ImpactPage extends ConsumerWidget {
         final isMobile = constraints.maxWidth < 900;
 
         return Scaffold(
-          backgroundColor: WebTheme.creamBackground,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           drawer: isMobile ? _buildDrawer(ref) : null,
           body: KeyedSubtree(
             key: ValueKey(ModalRoute.of(context)?.isCurrent ?? true),
@@ -24,11 +25,35 @@ class ImpactPage extends ConsumerWidget {
               slivers: [
                 _buildAppBar(ref, isMobile),
                 SliverToBoxAdapter(child: _buildHeader()),
-                SliverToBoxAdapter(child: _buildObjectivesSection()),
-                SliverToBoxAdapter(child: _buildTargetBeneficiariesSection()),
-                SliverToBoxAdapter(child: _buildDetailedPillars()),
-                SliverToBoxAdapter(child: _buildDataVisuals()),
-                SliverToBoxAdapter(child: _buildFooter()),
+                SliverToBoxAdapter(
+                  child: ScrollReveal(
+                    builder: (context, isVisible) =>
+                        _buildObjectivesSection(isVisible),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: ScrollReveal(
+                    builder: (context, isVisible) =>
+                        _buildTargetBeneficiariesSection(isVisible),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: ScrollReveal(
+                    builder: (context, isVisible) =>
+                        _buildDetailedPillars(isVisible),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: ScrollReveal(
+                    builder: (context, isVisible) =>
+                        _buildDataVisuals(isVisible),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: ScrollReveal(
+                    builder: (context, isVisible) => _buildFooter(isVisible),
+                  ),
+                ),
               ],
             ),
           ),
@@ -41,11 +66,11 @@ class ImpactPage extends ConsumerWidget {
     return SliverAppBar(
       floating: true,
       pinned: true,
-      backgroundColor: WebTheme.creamSurface.withValues(alpha: 0.9),
+      backgroundColor: Colors.white.withValues(alpha: 0.9),
       leading: isMobile
           ? null
           : IconButton(
-              icon: const Icon(Icons.arrow_back, color: WebTheme.darkText),
+              icon: const Icon(Icons.arrow_back, color: WebTheme.primary),
               onPressed: () => ref.read(coordinatorProvider).pop(),
             ),
       title: Text(
@@ -53,7 +78,7 @@ class ImpactPage extends ConsumerWidget {
         style: GoogleFonts.libreBaskerville(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: WebTheme.darkText,
+          color: WebTheme.primary,
         ),
       ),
       actions: isMobile
@@ -75,19 +100,19 @@ class ImpactPage extends ConsumerWidget {
 
   Widget _buildDrawer(WidgetRef ref) {
     return Drawer(
-      backgroundColor: WebTheme.creamBackground,
+      backgroundColor: Colors.white,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: const BoxDecoration(color: WebTheme.creamSurface),
+            decoration: const BoxDecoration(color: WebTheme.primary),
             child: Center(
               child: Text(
                 'YESAT',
                 style: GoogleFonts.libreBaskerville(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  color: WebTheme.darkText,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -109,54 +134,74 @@ class ImpactPage extends ConsumerWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 120, horizontal: 24),
-      decoration: BoxDecoration(color: WebTheme.creamSurface),
+      decoration: const BoxDecoration(color: WebTheme.primaryLight),
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              color: WebTheme.accentGold.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Text(
-              'OUR STRATEGY',
-              style: GoogleFonts.inter(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 2,
-                color: WebTheme.accentGold,
-              ),
-            ),
-          ).animate().fadeIn().scale(),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  color: WebTheme.secondary.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  'OUR STRATEGY',
+                  style: GoogleFonts.inter(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2,
+                    color: WebTheme.secondary,
+                  ),
+                ),
+              )
+              .animate()
+              .fadeIn(duration: WebTheme.animationDuration)
+              .scale(curve: WebTheme.animationCurve),
           const SizedBox(height: 32),
           Text(
-            'Strategic Action for\nSustainable Transformation',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.libreBaskerville(
-              fontSize: 56,
-              fontWeight: FontWeight.bold,
-              height: 1.1,
-              color: WebTheme.darkText,
-            ),
-          ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.2),
+                'Strategic Action for\nSustainable Transformation',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.libreBaskerville(
+                  fontSize: 56,
+                  fontWeight: FontWeight.bold,
+                  height: 1.1,
+                  color: WebTheme.darkText,
+                ),
+              )
+              .animate()
+              .fadeIn(delay: 400.ms, duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
+              ),
           const SizedBox(height: 32),
           ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 800),
-            child: Text(
-              'The main objective of YESAT Initiative Uganda Ltd is to mobilize and empower youth to provide essential services that improve social welfare, economic resilience, and environmental sustainability within communities.',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.inter(
-                fontSize: 20,
-                color: WebTheme.darkText.withValues(alpha: 0.7),
+                constraints: const BoxConstraints(maxWidth: 800),
+                child: Text(
+                  'The main objective of YESAT Initiative Uganda Ltd is to mobilize and empower youth to provide essential services that improve social welfare, economic resilience, and environmental sustainability within communities.',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.inter(
+                    fontSize: 20,
+                    color: WebTheme.darkText.withValues(alpha: 0.7),
+                  ),
+                ),
+              )
+              .animate()
+              .fadeIn(delay: 800.ms, duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
               ),
-            ),
-          ).animate().fadeIn(delay: 400.ms).slideY(begin: 0.2),
         ],
       ),
     );
   }
 
-  Widget _buildObjectivesSection() {
+  Widget _buildObjectivesSection(bool isVisible) {
     final objectives = [
       'Youth empowerment and skills development',
       'Community sensitization and awareness',
@@ -171,27 +216,41 @@ class ImpactPage extends ConsumerWidget {
       child: Column(
         children: [
           Text(
-            'Our Key Objectives',
-            style: GoogleFonts.libreBaskerville(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+                'Our Key Objectives',
+                style: GoogleFonts.libreBaskerville(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
+              ),
           const SizedBox(height: 48),
           Wrap(
-            spacing: 24,
-            runSpacing: 24,
-            alignment: WrapAlignment.center,
-            children: objectives
-                .map((obj) => _ObjectiveCard(title: obj))
-                .toList(),
-          ),
+                spacing: 24,
+                runSpacing: 24,
+                alignment: WrapAlignment.center,
+                children: objectives
+                    .map((obj) => _ObjectiveCard(title: obj))
+                    .toList(),
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(delay: 400.ms, duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
+              ),
         ],
       ),
     );
   }
 
-  Widget _buildTargetBeneficiariesSection() {
+  Widget _buildTargetBeneficiariesSection(bool isVisible) {
     final beneficiaries = [
       {'title': 'Youth and adolescents', 'icon': Icons.school},
       {'title': 'Women and girls', 'icon': Icons.face_retouching_natural},
@@ -202,90 +261,112 @@ class ImpactPage extends ConsumerWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 40),
-      color: WebTheme.creamSurface,
+      color: WebTheme.secondaryLight,
       child: Column(
         children: [
           Text(
-            'Target Beneficiaries',
-            style: GoogleFonts.libreBaskerville(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+                'Target Beneficiaries',
+                style: GoogleFonts.libreBaskerville(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: WebTheme.darkText,
+                ),
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
+              ),
           const SizedBox(height: 24),
           Text(
-            'Serving vulnerable groups within our communities.',
-            style: GoogleFonts.inter(
-              fontSize: 18,
-              color: WebTheme.darkText.withValues(alpha: 0.6),
-            ),
-          ),
+                'Serving vulnerable groups within our communities.',
+                style: GoogleFonts.inter(
+                  fontSize: 18,
+                  color: WebTheme.darkText.withValues(alpha: 0.6),
+                ),
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(delay: 400.ms, duration: WebTheme.animationDuration),
           const SizedBox(height: 60),
           Wrap(
-            spacing: 40,
-            runSpacing: 40,
-            alignment: WrapAlignment.center,
-            children: beneficiaries
-                .map(
-                  (b) => _BeneficiaryIcon(
-                    title: b['title'] as String,
-                    icon: b['icon'] as IconData,
-                  ),
-                )
-                .toList(),
-          ),
+                spacing: 40,
+                runSpacing: 40,
+                alignment: WrapAlignment.center,
+                children: beneficiaries
+                    .map(
+                      (b) => _BeneficiaryIcon(
+                        title: b['title'] as String,
+                        icon: b['icon'] as IconData,
+                      ),
+                    )
+                    .toList(),
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(delay: 800.ms, duration: WebTheme.animationDuration)
+              .slideY(
+                begin: WebTheme.animationSlide,
+                end: 0,
+                curve: WebTheme.animationCurve,
+              ),
         ],
       ),
     );
   }
 
-  Widget _buildDetailedPillars() {
+  Widget _buildDetailedPillars(bool isVisible) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
-      child: Center(
-        child: Wrap(
-          spacing: 40,
-          runSpacing: 40,
-          alignment: WrapAlignment.center,
-          children: [
-            _PillarDetail(
-              title: 'Youth Skilling',
-              stats: '2,500+ Graduated',
-              desc:
-                  'Vocational training in digital tools, tailoring, and sustainable farming methods.',
+          padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
+          child: Center(
+            child: Wrap(
+              spacing: 40,
+              runSpacing: 40,
+              alignment: WrapAlignment.center,
+              children: [
+                _PillarDetail(
+                  title: 'Youth Skilling',
+                  stats: '2,500+ Graduated',
+                  desc:
+                      'Vocational training in digital tools, tailoring, and sustainable farming methods.',
+                ),
+                _PillarDetail(
+                  title: 'Environment',
+                  stats: '15k Trees Planted',
+                  desc:
+                      'Active reforestation projects and community-led waste management programs.',
+                ),
+                _PillarDetail(
+                  title: 'Community',
+                  stats: '12 Districts Reached',
+                  desc:
+                      'Infrastructure support for clean water and local leadership development.',
+                ),
+              ],
             ),
-            _PillarDetail(
-              title: 'Environment',
-              stats: '15k Trees Planted',
-              desc:
-                  'Active reforestation projects and community-led waste management programs.',
-            ),
-            _PillarDetail(
-              title: 'Community',
-              stats: '12 Districts Reached',
-              desc:
-                  'Infrastructure support for clean water and local leadership development.',
-            ),
-          ],
-        ),
-      ),
-    );
+          ),
+        )
+        .animate(target: isVisible ? 1 : 0)
+        .fadeIn(duration: WebTheme.animationDuration)
+        .slideY(begin: 0.1, end: 0, curve: WebTheme.animationCurve);
   }
 
-  Widget _buildDataVisuals() {
+  Widget _buildDataVisuals(bool isVisible) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 24),
-      color: WebTheme.darkText,
+      color: WebTheme.primaryLight,
       child: Column(
         children: [
           Text(
-            'Growth Over Time',
-            style: GoogleFonts.libreBaskerville(
-              fontSize: 32,
-              color: WebTheme.creamBackground,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+                'Growth Over Time',
+                style: GoogleFonts.libreBaskerville(
+                  fontSize: 32,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(duration: WebTheme.animationDuration),
           const SizedBox(height: 48),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 900),
@@ -293,37 +374,45 @@ class ImpactPage extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                _ChartBar(height: 100, label: '2021'),
-                _ChartBar(height: 160, label: '2022'),
-                _ChartBar(height: 240, label: '2023'),
-                _ChartBar(height: 350, label: '2024 (Proj.)'),
+                _ChartBar(height: 100, label: '2021', isVisible: isVisible),
+                _ChartBar(height: 160, label: '2022', isVisible: isVisible),
+                _ChartBar(height: 240, label: '2023', isVisible: isVisible),
+                _ChartBar(
+                  height: 350,
+                  label: '2024 (Proj.)',
+                  isVisible: isVisible,
+                ),
               ],
             ),
           ),
           const SizedBox(height: 40),
           Text(
-            'Beneficiary Growth (Thousands)',
-            style: GoogleFonts.inter(
-              color: WebTheme.creamBackground.withValues(alpha: 0.5),
-              fontSize: 14,
-            ),
-          ),
+                'Beneficiary Growth (Thousands)',
+                style: GoogleFonts.inter(
+                  color: Colors.black87.withValues(alpha: 0.5),
+                  fontSize: 14,
+                ),
+              )
+              .animate(target: isVisible ? 1 : 0)
+              .fadeIn(delay: 1000.ms, duration: WebTheme.animationDuration),
         ],
       ),
     );
   }
 
-  Widget _buildFooter() {
+  Widget _buildFooter(bool isVisible) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 60),
-      color: WebTheme.creamSurface,
-      child: Center(
-        child: Text(
-          '© 2026 YESAT Initiative Uganda Ltd. Empowering the youth today.',
-          style: TextStyle(color: WebTheme.darkText.withValues(alpha: 0.5)),
-        ),
-      ),
-    );
+          padding: const EdgeInsets.symmetric(vertical: 60),
+          color: WebTheme.primaryDark,
+          child: Center(
+            child: Text(
+              '© 2026 YESAT Initiative Uganda Ltd. Empowering the youth today.',
+              style: TextStyle(color: Colors.white.withValues(alpha: 0.7)),
+            ),
+          ),
+        )
+        .animate(target: isVisible ? 1 : 0)
+        .fadeIn(duration: WebTheme.animationDuration);
   }
 }
 
@@ -338,13 +427,20 @@ class _ObjectiveCard extends StatelessWidget {
       width: 280,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: WebTheme.creamBackground,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: WebTheme.accentGold.withValues(alpha: 0.2)),
+        border: Border.all(color: WebTheme.grayBorder),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
         children: [
-          const Icon(Icons.check_circle_outline, color: WebTheme.accentGold),
+          const Icon(Icons.check_circle_outline, color: WebTheme.secondary),
           const SizedBox(width: 16),
           Expanded(
             child: Text(
@@ -358,7 +454,7 @@ class _ObjectiveCard extends StatelessWidget {
           ),
         ],
       ),
-    ).animate().fadeIn().slideX(begin: 0.1);
+    );
   }
 }
 
@@ -375,7 +471,7 @@ class _BeneficiaryIcon extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
-            color: WebTheme.creamBackground,
+            color: WebTheme.primaryLight,
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
@@ -384,7 +480,7 @@ class _BeneficiaryIcon extends StatelessWidget {
               ),
             ],
           ),
-          child: Icon(icon, color: WebTheme.accentGold, size: 32),
+          child: Icon(icon, color: WebTheme.primary, size: 32),
         ),
         const SizedBox(height: 16),
         Text(
@@ -397,7 +493,7 @@ class _BeneficiaryIcon extends StatelessWidget {
           ),
         ),
       ],
-    ).animate().fadeIn().scale(delay: 300.ms);
+    );
   }
 }
 
@@ -451,37 +547,49 @@ class _PillarDetail extends StatelessWidget {
           ),
         ],
       ),
-    ).animate().fadeIn(duration: 800.ms).slideX(begin: -0.1);
+    );
   }
 }
 
 class _ChartBar extends StatelessWidget {
   final double height;
   final String label;
+  final bool isVisible;
 
-  const _ChartBar({required this.height, required this.label});
+  const _ChartBar({
+    required this.height,
+    required this.label,
+    required this.isVisible,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          width: 60,
-          height: height,
-          decoration: BoxDecoration(
-            color: WebTheme.accentGold,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-          ),
-        ).animate().scaleY(
-          begin: 0,
-          end: 1,
-          duration: 1500.ms,
-          curve: Curves.easeOutExpo,
-        ),
+              width: 60,
+              height: height,
+              decoration: BoxDecoration(
+                color: WebTheme.accentGold,
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(8),
+                ),
+              ),
+            )
+            .animate(target: isVisible ? 1 : 0)
+            .scaleY(
+              begin: 0,
+              end: 1,
+              duration: WebTheme.animationDuration,
+              curve: WebTheme.animationCurve,
+            ),
         const SizedBox(height: 12),
         Text(
           label,
-          style: TextStyle(color: WebTheme.creamBackground, fontSize: 13),
+          style: TextStyle(
+            color: Colors.black54.withValues(alpha: 0.7),
+            fontSize: 13,
+          ),
         ),
       ],
     );
