@@ -543,7 +543,7 @@ class _NavBarItem extends StatelessWidget {
               title,
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
-                color: WebTheme.primary,
+                color: WebTheme.darkText,
               ),
             ),
           ),
